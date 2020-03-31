@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pytap.project.dao.RolePermissionDao">
+
+    <insert id="insertRolePermission">
+        INSERT INTO role_permission (
+            role_id, permission_id, create_time)
+        VALUES (
+            #{roleId}, #{permissionId}, #{createTime})
+    </insert>
+    <update id="updateByRolePermissionId">
+        UPDATE role_permission SET role_id = #{roleId}, permission_id = #{permissionId}, create_time = #{createTime}
+    </update>
+    <delete id="deleteByRolePermissionId">
+        DELETE FROM role_permission WHERE id = #{id}
+    </delete>
+    <select id="getByRolePermissionId" resultType="com.pytap.project.entity.RolePermission">
+        SELECT id, role_id, permission_id, create_time FROM role_permission WHERE id = #{id}
+    </select>
+    <select id="listAllRolePermissions" resultType="com.pytap.project.entity.RolePermission">
+        SELECT id, role_id, permission_id, create_time FROM role_permission
+    </select>
+</mapper>
