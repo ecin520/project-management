@@ -18,7 +18,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/admin/RolePermission")
-//@PreAuthorize("hasRole('R_ADMIN')")
+@PreAuthorize("hasRole('R_ADMIN')")
 public class RolePermissionController {
 
 	@Resource

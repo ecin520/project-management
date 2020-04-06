@@ -1,5 +1,6 @@
 package com.pytap.project.service.impl;
 
+import com.pytap.project.annotation.WebLog;
 import com.pytap.project.dao.AdminUserDao;
 import com.pytap.project.entity.AddPermission;
 import com.pytap.project.entity.Permission;
@@ -58,6 +59,7 @@ public class AdminUserServiceImpl implements AdminUserService {
             token = jwtTokenUtil.generateToken(userDetails);
         } catch(AuthenticationException e) {
             logger.error("登陆异常 {}", e.getMessage());
+            return "";
         }
         return token;
     }

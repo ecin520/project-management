@@ -1,5 +1,6 @@
 package com.pytap.project.controller;
 
+import com.pytap.project.annotation.WebLog;
 import com.pytap.project.entity.AddPermission;
 import com.pytap.project.entity.Permission;
 import com.pytap.project.entity.Role;
@@ -20,13 +21,14 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/admin")
-//@PreAuthorize("hasRole('R_ADMIN')")
+@PreAuthorize("hasRole('R_ADMIN')")
 public class AdminUserController {
 
     @Resource
     private AdminUserService adminUserService;
 
     @ApiOperation(value = "根据id获取用户所有权限，不包括附加权限")
+    @WebLog(value = "根据id获取用户所有权限，不包括附加权限")
     @RequestMapping(value = "listUserPermissions", method = RequestMethod.POST)
     public List<Permission> listUserPermissions(Long id) {
         return adminUserService.listUserPermissions(id);

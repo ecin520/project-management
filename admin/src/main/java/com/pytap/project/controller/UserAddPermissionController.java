@@ -19,7 +19,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/admin/UserAddPermission")
-//@PreAuthorize("hasRole('R_ADMIN')")
+@PreAuthorize("hasRole('R_ADMIN')")
 public class UserAddPermissionController {
 
 	@Resource

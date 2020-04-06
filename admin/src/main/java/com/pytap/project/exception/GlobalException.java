@@ -17,6 +17,7 @@ public class GlobalException {
 
 	@ExceptionHandler(value = Exception.class)
 	public void exception(Exception e) {
+		e.printStackTrace();
 		logger.info("Error: {}", e.getMessage());
 	}
 }

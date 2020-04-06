@@ -1,6 +1,7 @@
 package com.pytap.project.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.pytap.project.annotation.WebLog;
 import com.pytap.project.service.AdminUserService;
 import com.pytap.project.utils.JsonUtil;
 import io.swagger.annotations.ApiOperation;
@@ -22,11 +23,12 @@ public class CommonController {
 	@Resource
 	private AdminUserService adminUserService;
 
-	@RequestMapping(value = "login", method = RequestMethod.POST)
 	@ApiOperation(value = "登录")
+	@RequestMapping(value = "login", method = RequestMethod.POST)
+	@WebLog(value = "登录接口")
 	public JSONObject login(String username, String password) {
 		String token = adminUserService.login(username, password);
-		return JsonUtil.backInfo(200, "Bearer" + token);
+		return JsonUtil.backInfo(200,  token);
 	}
 
 	@RequestMapping(value = "auth-project", method = RequestMethod.POST)

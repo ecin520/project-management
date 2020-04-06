@@ -25,6 +25,8 @@ spring:
       stat-view-servlet: #访问监控网页的登录用户名和密码
         login-username: user
         login-password: qwer1234
+  aop:
+    auto: true
 
 logging:
   level:

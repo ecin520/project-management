@@ -4,7 +4,6 @@ import com.pytap.project.dao.RolePermissionDao;
 import com.pytap.project.entity.RolePermission;
 import com.pytap.project.service.RolePermissionService;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.annotation.Resource;
 import java.util.Date;
