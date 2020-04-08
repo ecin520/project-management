@@ -1,6 +1,5 @@
 package com.pytap.project.model.dto;
 
-import com.pytap.project.entity.Permission;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,7 +26,7 @@ public class UserDTO implements Serializable {
     private Date createTime;
     private Date loginTime;
     private Integer status;
-    private List<Permission> permission;
+    private List<AuthDTO> permission;
 
     @Override
     public String toString() {

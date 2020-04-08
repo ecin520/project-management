@@ -1,6 +1,5 @@
 package com.pytap.project.service.impl;
 
-import com.pytap.project.annotation.WebLog;
 import com.pytap.project.dao.AdminUserDao;
 import com.pytap.project.entity.AddPermission;
 import com.pytap.project.entity.Permission;
@@ -12,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -47,20 +47,18 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     public String login(String username, String password) {
-        String token = "";
-        try {
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-            if (!passwordEncoder.matches(password, userDetails.getPassword())) {
-                throw new BadCredentialsException("密码错误");
-            }
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                    userDetails, null, userDetails.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-            token = jwtTokenUtil.generateToken(userDetails);
-        } catch(AuthenticationException e) {
-            logger.error("登陆异常 {}", e.getMessage());
-            return "";
+        String token = null;
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        if (!passwordEncoder.matches(password, userDetails.getPassword())) {
+            throw new BadCredentialsException("密码错误");
         }
+        if (!userDetails.isEnabled()) {
+            throw new DisabledException("账户已被禁用");
+        }
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                userDetails, null, userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        token = jwtTokenUtil.generateToken(userDetails);
         return token;
     }
 

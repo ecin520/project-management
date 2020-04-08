@@ -14,6 +14,7 @@
         <module>admin</module>
         <module>web</module>
         <module>security</module>
+        <module>logging</module>
     </modules>
 
 

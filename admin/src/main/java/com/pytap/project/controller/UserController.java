@@ -67,8 +67,8 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "listAllUsers", method = RequestMethod.GET)
-	public List<User> listAllUsers() {
-		return userService.listAllUsers();
+	public JSONObject listAllUsers() {
+		return JsonUtil.backObject(200, userService.listAllUsers());
 	}
 
 }

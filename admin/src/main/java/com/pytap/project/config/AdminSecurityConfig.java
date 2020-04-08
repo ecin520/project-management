@@ -44,7 +44,7 @@ public class AdminSecurityConfig extends SecurityConfig {
 				}
 				return new UserDetailsImpl(user, list);
 			} else {
-				throw new UsernameNotFoundException("用户名密码不正确");
+				throw new UsernameNotFoundException("用户名不存在");
 			}
 		};
 	}

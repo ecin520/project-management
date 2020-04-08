@@ -9,7 +9,10 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 
 /**
@@ -43,6 +46,13 @@ public class WebLogAspect {
 		Method method = signature.getMethod();
 
 		WebLog webLog = method.getAnnotation(WebLog.class);
+
+		ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+
+		if (null != requestAttributes) {
+			HttpServletRequest request = requestAttributes.getRequest();
+			logger.info(request.getLocalAddr());
+		}
 
 		logger.info(webLog.value());
 		logger.info(joinPoint.getSignature() + "方法执行了" + (System.currentTimeMillis() - currentTime.get()) + "ms");
