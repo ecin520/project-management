@@ -2,6 +2,7 @@ package com.pytap.project.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.pytap.project.annotation.WebLog;
 import com.pytap.project.entity.UserAddPermission;
 import com.pytap.project.service.UserAddPermissionService;
 import com.pytap.project.utils.JsonUtil;
@@ -25,7 +26,7 @@ public class UserAddPermissionController {
 	@Resource
 	private UserAddPermissionService userAddPermissionService;
 
-
+	@WebLog
 	@RequestMapping(value = "insertUserAddPermission", method = RequestMethod.POST)
 	public JSONObject insertUserAddPermission(UserAddPermission userAddPermission) {
 		int result = userAddPermissionService.insertUserAddPermission(userAddPermission);
@@ -35,6 +36,7 @@ public class UserAddPermissionController {
 		return JsonUtil.fail();
 	}
 
+	@WebLog
 	@RequestMapping(value = "deleteByUserAddPermissionId", method = RequestMethod.POST)
 	public JSONObject deleteByUserAddPermissionId(Long id) {
 		int result = userAddPermissionService.deleteByUserAddPermissionId(id);
@@ -44,6 +46,7 @@ public class UserAddPermissionController {
 		return JsonUtil.fail();
 	}
 
+	@WebLog
 	@RequestMapping(value = "updateByUserAddPermissionId", method = RequestMethod.POST)
 	public JSONObject updateByUserAddPermissionId(UserAddPermission userAddPermission) {
 		int result = userAddPermissionService.updateByUserAddPermissionId(userAddPermission);
@@ -53,14 +56,16 @@ public class UserAddPermissionController {
 		return JsonUtil.fail();
 	}
 
+	@WebLog
 	@RequestMapping(value = "getByUserAddPermissionId", method = RequestMethod.POST)
-	public UserAddPermission getByUserAddPermissionId(Long id) {
-		return userAddPermissionService.getByUserAddPermissionId(id);
+	public JSONObject getByUserAddPermissionId(Long id) {
+		return JsonUtil.backObject(200, userAddPermissionService.getByUserAddPermissionId(id));
 	}
 
+	@WebLog
 	@RequestMapping(value = "listAllUserAddPermissions", method = RequestMethod.GET)
-	public List<UserAddPermission> listAllUserAddPermissions() {
-		return userAddPermissionService.listAllUserAddPermissions();
+	public JSONObject listAllUserAddPermissions() {
+		return JsonUtil.backObject(200, userAddPermissionService.listAllUserAddPermissions());
 	}
 
 }

@@ -33,15 +33,15 @@ public interface PermissionService {
 
 	/**
 	 * 主键获得权限
-	 * @param id 权限id
+	 * @param queryParam 查询参数
 	 * @return Permission 权限实体
 	 * */
-	Permission getByPermissionId(Long id);
+	Permission getPermission(Permission queryParam);
 
 	/**
 	 * 获取所有权限
 	 * @return List<Permission>
 	 * */
-	List<Permission> listAllPermissions();
+	List<Permission> listAllPermissions(Integer pageNum, Integer pageSize);
 
 }

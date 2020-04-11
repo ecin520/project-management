@@ -3,9 +3,10 @@
 <mapper namespace="com.pytap.project.dao.UserAddPermissionDao">
 
     <insert id="insertUserAddPermission">
-        INSERT INTO user_additional_permission (
-            user_id, additional_permission_id, create_time)
-        VALUES (#{userId}, #{additionalPermissionId}, #{createTime})
+        INSERT INTO user_additional_permission (user_id, additional_permission_id, create_time)
+        VALUES (
+            #{userId}, #{additionalPermissionId}, #{createTime}
+        )
     </insert>
     <update id="updateByUserAddPermissionId">
         UPDATE user_additional_permission SET user_id = #{userId}, additional_permission_id = #{additionalPermissionId}, create_time = #{createTime}
@@ -18,5 +19,8 @@
     </select>
     <select id="listAllUserAddPermissions" resultType="com.pytap.project.entity.UserAddPermission">
         SELECT id, user_id, additional_permission_id, create_time FROM user_additional_permission
+    </select>
+    <select id="countAddPermission" resultType="java.lang.Integer">
+        SELECT count(*) FROM user_additional_permission
     </select>
 </mapper>

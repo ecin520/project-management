@@ -1,16 +1,17 @@
 package com.pytap.project.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.pytap.project.annotation.WebLog;
 import com.pytap.project.entity.Permission;
 import com.pytap.project.service.PermissionService;
 import com.pytap.project.utils.JsonUtil;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author Ecin520
@@ -24,7 +25,7 @@ public class PermissionController {
 	@Resource
 	private PermissionService permissionService;
 
-
+	@WebLog
 	@RequestMapping(value = "insertPermission", method = RequestMethod.POST)
 	public JSONObject insertPermission(Permission permission) {
 		int result = permissionService.insertPermission(permission);
@@ -34,6 +35,7 @@ public class PermissionController {
 		return JsonUtil.fail();
 	}
 
+	@WebLog
 	@RequestMapping(value = "deleteByPermissionId", method = RequestMethod.POST)
 	public JSONObject deleteByPermissionId(Long id) {
 		int result = permissionService.deleteByPermissionId(id);
@@ -43,6 +45,7 @@ public class PermissionController {
 		return JsonUtil.fail();
 	}
 
+	@WebLog
 	@RequestMapping(value = "updateByPermissionId", method = RequestMethod.POST)
 	public JSONObject updateByPermissionId(Permission permission) {
 		int result = permissionService.updateByPermissionId(permission);
@@ -52,13 +55,17 @@ public class PermissionController {
 		return JsonUtil.fail();
 	}
 
-	@RequestMapping(value = "getByPermissionId", method = RequestMethod.POST)
-	public Permission getByPermissionId(Long id) {
-		return permissionService.getByPermissionId(id);
+	@WebLog
+	@RequestMapping(value = "getPermission", method = RequestMethod.POST)
+	public JSONObject getPermission(Permission permission) {
+		return JsonUtil.backObject(200, permissionService.getPermission(permission));
 	}
+
+	@WebLog
 	@RequestMapping(value = "listAllPermissions", method = RequestMethod.GET)
-	public  List<Permission> listAllPermissions() {
-		return permissionService.listAllPermissions();
+	public  JSONObject listAllPermissions(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+	                                      @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
+		return JsonUtil.backObject(200, permissionService.listAllPermissions(pageNum, pageSize));
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.pytap.project.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.pytap.project.dao.PermissionDao;
 import com.pytap.project.entity.Permission;
 import com.pytap.project.service.PermissionService;
@@ -36,12 +37,14 @@ public class PermissionServiceImpl implements PermissionService {
 	}
 
 	@Override
-	public Permission getByPermissionId(Long id) {
-		return permissionDao.getByPermissionId(id);
+	public Permission getPermission(Permission queryParam) {
+		return permissionDao.getPermission(queryParam);
 	}
 
 	@Override
-	public List<Permission> listAllPermissions() {
+	public List<Permission> listAllPermissions(Integer pageNum, Integer pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
 		return permissionDao.listAllPermissions();
 	}
+
 }

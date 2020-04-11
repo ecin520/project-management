@@ -1,6 +1,7 @@
 package com.pytap.project.service;
 
 import com.pytap.project.entity.User;
+import com.pytap.project.model.dto.UserDTO;
 
 import java.util.List;
 
@@ -9,6 +10,12 @@ import java.util.List;
  * @date 2020/3/30 14:38
  */
 public interface UserService {
+
+    /**
+     * 统计总数
+     * @return Integer
+     * */
+    Integer countUser();
 
     /**
      * 插入用户
@@ -49,6 +56,6 @@ public interface UserService {
      * 获取所有用户
      * @return List<User>
      * */
-    List<User> listAllUsers();
+    List<User> listAllUsers(Integer pageNum, Integer pageSize);
 
 }

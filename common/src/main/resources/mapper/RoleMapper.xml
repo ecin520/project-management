@@ -3,26 +3,48 @@
 <mapper namespace="com.pytap.project.dao.RoleDao">
 
     <insert id="insertRole"  parameterType="com.pytap.project.entity.Role">
-        INSERT INTO (
-            name,
-            description,
-            create_time)
+        INSERT INTO (name, description, create_time)
         VALUES (
             name = #{name},
             description = #{description},
-            create_time = #{createTime})
+            create_time = #{createTime}
+        )
     </insert>
     <update id="updateByRoleId" parameterType="com.pytap.project.entity.Role">
-        UPDATE role SET name = #{name}, description = #{description}, create_time = #{createTime} WHERE id = #{id}
+        UPDATE role SET
+        <trim suffixOverrides=",">
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+        </trim>
+        WHERE id = #{id}
     </update>
     <delete id="deleteByRoleId" parameterType="long">
         DELETE FROM role WHERE id = #{id}
     </delete>
-    <select id="getByRoleId" resultType="com.pytap.project.entity.Role">
-        SELECT name, description, create_time FROM role WHERE id = #{id} LIMIT 1
+    <select id="getRole" resultType="com.pytap.project.entity.Role">
+        SELECT id, name, description, create_time FROM role
+        <where>
+            <if test="id != null and id != ''">
+                id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                AND name = #{name}
+            </if>
+        </where>
+        LIMIT 1
     </select>
     <select id="listAllRoles" resultType="com.pytap.project.entity.Role">
         SELECT id, name, description, create_time FROM role
+    </select>
+    <select id="countRole" resultType="java.lang.Integer">
+        SELECT count(*) FROM role
     </select>
 
 </mapper>

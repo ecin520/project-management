@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author Ecin520
@@ -16,19 +15,24 @@ public class WebLogDO implements Serializable {
 	private static final long serialVersionUID = 2618996880016222510L;
 
 	private Integer id;
-	private String type;
+	private String description;
+	private String username;
+	private Long spendTime;
+	private Long createTime;
+	private String url;
 	private String ip;
-	private String value;
-	private Date createTime;
 
 	@Override
 	public String toString() {
 		return "WebLogDO{" +
 				"id=" + id +
-				", type='" + type + '\'' +
-				", ip='" + ip + '\'' +
-				", value='" + value + '\'' +
+				", description='" + description + '\'' +
+				", username='" + username + '\'' +
+				", spendTime=" + spendTime +
 				", createTime=" + createTime +
+				", url='" + url + '\'' +
+				", ip='" + ip + '\'' +
 				'}';
 	}
+
 }

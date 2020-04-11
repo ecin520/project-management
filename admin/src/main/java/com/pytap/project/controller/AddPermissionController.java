@@ -1,16 +1,18 @@
 package com.pytap.project.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.pytap.project.annotation.WebLog;
 import com.pytap.project.entity.AddPermission;
 import com.pytap.project.service.AddPermissionService;
 import com.pytap.project.utils.JsonUtil;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author Ecin520
@@ -24,8 +26,10 @@ public class AddPermissionController {
 	@Resource
 	private AddPermissionService addPermissionService;
 
+	@WebLog(value = "插入权限")
 	@RequestMapping(value = "insertAddPermission", method = RequestMethod.POST)
 	public JSONObject insertAddPermission(AddPermission addPermission) {
+		System.out.println(addPermission.toString());
 		int result = addPermissionService.insertAddPermission(addPermission);
 		if (result == 1) {
 			return JsonUtil.success();
@@ -33,6 +37,7 @@ public class AddPermissionController {
 		return JsonUtil.fail();
 	}
 
+	@WebLog(value = "通过id删除附加权限")
 	@RequestMapping(value = "deleteByAddPermissionId", method = RequestMethod.POST)
 	public JSONObject deleteByAddPermissionId(Long id) {
 		int result = addPermissionService.deleteByAddPermissionId(id);
@@ -42,6 +47,7 @@ public class AddPermissionController {
 		return JsonUtil.fail();
 	}
 
+	@WebLog(value = "更新附加权限")
 	@RequestMapping(value = "updateByAddPermissionId", method = RequestMethod.POST)
 	public JSONObject updateByAddPermissionId(AddPermission addPermission) {
 		int result = addPermissionService.updateByAddPermissionId(addPermission);
@@ -51,13 +57,16 @@ public class AddPermissionController {
 		return JsonUtil.fail();
 	}
 
-	@RequestMapping(value = "getByAddPermissionId", method = RequestMethod.POST)
-	public AddPermission getByAddPermissionId(Long id) {
-		return addPermissionService.getByAddPermissionId(id);
+	@WebLog(value = "通过id 或者 name 获取附加权限")
+	@RequestMapping(value = "getAddPermission", method = RequestMethod.POST)
+	public JSONObject getAddPermission(AddPermission addPermission) {
+		return JsonUtil.backObject(200, addPermissionService.getAddPermission(addPermission));
 	}
 
+	@WebLog(value = "列出所有附加权限")
 	@RequestMapping(value = "listAllAddPermissions", method = RequestMethod.GET)
-	public List<AddPermission> listAllAddPermissions() {
-		return addPermissionService.listAllAddPermissions();
+	public JSONObject listAllAddPermissions(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+	                                        @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
+		return JsonUtil.backObject(200, addPermissionService.listAllAddPermissions(pageNum, pageSize));
 	}
 }

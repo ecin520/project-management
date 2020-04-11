@@ -3,7 +3,7 @@
 <mapper namespace="com.pytap.project.dao.UserDao">
 
     <insert id="insertUser" parameterType="com.pytap.project.entity.User">
-        INSERT INTO user(
+        INSERT INTO user (
             username,
             password,
             avatar,
@@ -26,15 +26,36 @@
     </insert>
     <update id="updateByUserId" parameterType="com.pytap.project.entity.User">
         UPDATE user SET
-        username = #{username},
-        password = #{password},
-        avatar = #{avatar},
-        email = #{email},
-        nickname = #{nickname},
-        note = #{note},
-        create_time = #{createTime},
-        login_time = #{loginTime},
-        status = #{status} WHERE id = #{id}
+        <trim suffixOverrides=",">
+            <if test="username != null">
+                username = #{username},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="avatar != null">
+                avatar = #{avatar},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="nickname != null">
+                nickname = #{nickname},
+            </if>
+            <if test="note != null">
+                note = #{note},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="loginTime != null">
+                login_time = #{loginTime},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </trim>
+        WHERE id = #{id}
     </update>
     <delete id="deleteByUserId" parameterType="long">
         DELETE FROM user WHERE id = #{id}
@@ -74,5 +95,8 @@
         create_time,
         login_time,
         status FROM user
+    </select>
+    <select id="countUser" resultType="java.lang.Integer">
+        SELECT count(*) FROM user
     </select>
 </mapper>

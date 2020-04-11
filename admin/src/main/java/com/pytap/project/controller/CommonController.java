@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.pytap.project.annotation.WebLog;
 import com.pytap.project.entity.User;
 import com.pytap.project.model.dto.AuthDTO;
-import com.pytap.project.model.dto.UserDTO;
+import com.pytap.project.model.dto.UserAuthDTO;
 import com.pytap.project.service.AdminUserService;
 import com.pytap.project.service.UserService;
 import com.pytap.project.utils.JsonUtil;
@@ -33,16 +33,15 @@ public class CommonController {
 	@Resource
 	private UserService userService;
 
-	@ApiOperation(value = "登录")
-	@RequestMapping(value = "login", method = RequestMethod.POST)
 	@WebLog(value = "登录接口")
+	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public JSONObject login(String username, String password) {
 		String token = adminUserService.login(username, password);
 		User user = userService.getByUsername(username);
 		List<AuthDTO> list = adminUserService.listUserAllRolePermissions(user.getId());
 		for (AuthDTO authDTO : list) {
 			if ("R_ADMIN".equals(authDTO.getName())) {
-				UserDTO userDTO = new UserDTO();
+				UserAuthDTO userDTO = new UserAuthDTO();
 				BeanUtils.copyProperties(user, userDTO);
 				userDTO.setPermission(list);
 				return JsonUtil.loginSuccess(200, token, userDTO);
@@ -51,6 +50,7 @@ public class CommonController {
 		throw new AccessDeniedException("账户无访问权限，请联系管理员");
 	}
 
+	@WebLog
 	@RequestMapping(value = "auth-project", method = RequestMethod.POST)
 	@PreAuthorize("hasAuthority('AP_' + #id)")
 	@ApiOperation(value = "测试权限")

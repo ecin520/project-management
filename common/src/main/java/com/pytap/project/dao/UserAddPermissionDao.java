@@ -13,6 +13,12 @@ import java.util.List;
 public interface UserAddPermissionDao {
 
 	/**
+	 * 统计总数
+	 * @return Integer
+	 * */
+	Integer countAddPermission();
+
+	/**
 	 * 插入用户额外权限关系
 	 * @param userAddPermission 用户额外权限关系实体
 	 * @return Integer

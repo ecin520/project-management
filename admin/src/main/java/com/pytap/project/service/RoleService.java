@@ -33,15 +33,15 @@ public interface RoleService {
 
 	/**
 	 * 主键获得角色
-	 * @param id 角色id
+	 * @param queryParam 查询参数
 	 * @return Role 角色实体
 	 * */
-	Role getByRoleId(Long id);
+	Role getRole(Role queryParam);
 
 	/**
 	 * 获取所有角色
 	 * @return List<Role>
 	 * */
-	List<Role> listAllRoles();
+	List<Role> listAllRoles(Integer pageNum, Integer pageSize);
 
 }

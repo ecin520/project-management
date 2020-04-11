@@ -19,4 +19,7 @@
     <select id="listAllUserRoles" resultType="com.pytap.project.entity.UserRole">
         SELECT id, user_id, role_id, create_time FROM user_role
     </select>
+    <select id="countUserRole" resultType="java.lang.Integer">
+        SELECT count(*) FROM user_role
+    </select>
 </mapper>

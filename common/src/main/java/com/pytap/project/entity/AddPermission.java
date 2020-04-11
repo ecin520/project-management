@@ -1,8 +1,10 @@
 package com.pytap.project.entity;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;

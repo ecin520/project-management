@@ -1,5 +1,6 @@
 package com.pytap.project.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.pytap.project.dao.RoleDao;
 import com.pytap.project.entity.Role;
 import com.pytap.project.service.RoleService;
@@ -36,12 +37,15 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public Role getByRoleId(Long id) {
-		return roleDao.getByRoleId(id);
+	public Role getRole(Role queryParam) {
+		return roleDao.getRole(queryParam);
 	}
 
 	@Override
-	public List<Role> listAllRoles() {
+	public List<Role> listAllRoles(Integer pageNum, Integer pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
 		return roleDao.listAllRoles();
 	}
+
+
 }

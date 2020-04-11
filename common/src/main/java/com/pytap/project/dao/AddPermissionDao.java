@@ -13,6 +13,12 @@ import java.util.List;
 public interface AddPermissionDao {
 
     /**
+     * 统计总数
+     * @return Integer
+     * */
+    Integer countAddPermission();
+
+    /**
      * 插入额外权限
      * @param addPermission 额外权限实体
      * @return Integer
@@ -35,10 +41,10 @@ public interface AddPermissionDao {
 
     /**
      * 主键获得额外权限
-     * @param id 额外权限id
+     * @param queryParam 查询参数
      * @return AddPermission 额外权限实体
      * */
-    AddPermission getByAddPermissionId(Long id);
+    AddPermission getAddPermission(AddPermission queryParam);
 
     /**
      * 获取所有额外权限

@@ -3,10 +3,10 @@
 <mapper namespace="com.pytap.project.dao.RolePermissionDao">
 
     <insert id="insertRolePermission">
-        INSERT INTO role_permission (
-            role_id, permission_id, create_time)
+        INSERT INTO role_permission (role_id, permission_id, create_time)
         VALUES (
-            #{roleId}, #{permissionId}, #{createTime})
+            #{roleId}, #{permissionId}, #{createTime}
+        )
     </insert>
     <update id="updateByRolePermissionId">
         UPDATE role_permission SET role_id = #{roleId}, permission_id = #{permissionId}, create_time = #{createTime}
@@ -19,5 +19,8 @@
     </select>
     <select id="listAllRolePermissions" resultType="com.pytap.project.entity.RolePermission">
         SELECT id, role_id, permission_id, create_time FROM role_permission
+    </select>
+    <select id="countRolePermission" resultType="java.lang.Integer">
+        SELECT count(*) FROM role_permission
     </select>
 </mapper>

@@ -3,26 +3,48 @@
 <mapper namespace="com.pytap.project.dao.PermissionDao">
 
     <insert id="insertPermission"  parameterType="com.pytap.project.entity.Permission">
-        INSERT INTO (
-            name,
-            description,
-            create_time)
+        INSERT INTO Permission (name, description, create_time)
         VALUES (
             name = #{name},
             description = #{description},
-            create_time = #{createTime})
+            create_time = #{createTime}
+        )
     </insert>
     <update id="updateByPermissionId" parameterType="com.pytap.project.entity.Permission">
-        UPDATE permission SET name = #{name}, description = #{description}, create_time = #{createTime} WHERE id = #{id}
+        UPDATE permission SET
+        <trim suffixOverrides=",">
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+        </trim>
+        WHERE id = #{id}
     </update>
     <delete id="deleteByPermissionId" parameterType="long">
         DELETE FROM permission WHERE id = #{id}
     </delete>
-    <select id="getByPermissionId" resultType="com.pytap.project.entity.Permission">
-        SELECT name, description, create_time FROM permission WHERE id = #{id} LIMIT 1
+    <select id="getPermission" resultType="com.pytap.project.entity.Permission">
+        SELECT id, name, description, create_time FROM permission
+        <where>
+            <if test="id != null and id != ''">
+                id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                AND name = #{name}
+            </if>
+        </where>
+        LIMIT 1
     </select>
     <select id="listAllPermissions" resultType="com.pytap.project.entity.Permission">
         SELECT id, name, description, create_time FROM permission
+    </select>
+    <select id="countPermission" resultType="java.lang.Integer">
+        SELECT count(*) FROM permission
     </select>
 
 </mapper>

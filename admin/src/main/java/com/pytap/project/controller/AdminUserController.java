@@ -1,11 +1,9 @@
 package com.pytap.project.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.pytap.project.annotation.WebLog;
-import com.pytap.project.entity.AddPermission;
-import com.pytap.project.entity.Permission;
-import com.pytap.project.entity.Role;
-import com.pytap.project.model.dto.AuthDTO;
 import com.pytap.project.service.AdminUserService;
+import com.pytap.project.utils.JsonUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author Ecin520
@@ -27,35 +24,34 @@ public class AdminUserController {
     @Resource
     private AdminUserService adminUserService;
 
-    @ApiOperation(value = "根据id获取用户所有权限，不包括附加权限")
     @WebLog(value = "根据id获取用户所有权限，不包括附加权限")
     @RequestMapping(value = "listUserPermissions", method = RequestMethod.POST)
-    public List<Permission> listUserPermissions(Long id) {
-        return adminUserService.listUserPermissions(id);
+    public JSONObject listUserPermissions(Long id) {
+        return JsonUtil.backObject(200, adminUserService.listUserPermissions(id));
     }
 
-    @ApiOperation(value = "根据id获取用户所有附加权限")
+    @WebLog(value = "根据id获取用户所有附加权限")
     @RequestMapping(value = "listUserAddPermissions", method = RequestMethod.POST)
-    public List<AddPermission> listUserAddPermissions(Long id) {
-        return adminUserService.listUserAddPermissions(id);
+    public JSONObject listUserAddPermissions(Long id) {
+        return JsonUtil.backObject(200, adminUserService.listUserAddPermissions(id));
     }
 
-    @ApiOperation(value = "根据id获取用户所有权限，包括附加权限")
+    @WebLog(value = "根据id获取用户所有权限，包括附加权限")
     @RequestMapping(value = "listAllPermissions", method = RequestMethod.POST)
-    public List<AuthDTO> userList(Long id) {
-        return adminUserService.listUserAllPermissions(id);
+    public JSONObject userList(Long id) {
+        return JsonUtil.backObject(200, adminUserService.listUserAllPermissions(id));
     }
 
+    @WebLog(value = "获取用户所有角色")
     @RequestMapping(value = "listAllRoles", method = RequestMethod.POST)
-    @ApiOperation(value = "获取用户所有角色")
-    public List<Role> listAllRoles(Long id) {
-        return adminUserService.listUserRoles(id);
+    public JSONObject listAllRoles(Long id) {
+        return JsonUtil.backObject(200, adminUserService.listUserRoles(id));
     }
 
-    @ApiOperation(value = "根据id获取用户所有角色权限，包括附加权限")
+    @WebLog(value = "根据id获取用户所有角色权限，包括附加权限")
     @RequestMapping(value = "listUserAllRolesPermissions", method = RequestMethod.POST)
-    public List<AuthDTO> listAllRolesPermissions(Long id) {
-        return adminUserService.listUserAllRolePermissions(id);
+    public JSONObject listAllRolesPermissions(Long id) {
+        return JsonUtil.backObject(200, adminUserService.listUserAllRolePermissions(id));
     }
 
 

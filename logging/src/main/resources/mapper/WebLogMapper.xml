@@ -5,5 +5,11 @@
     <insert id="insertWebLog">
 
     </insert>
+    <select id="getWebLog" resultType="com.pytap.project.model.WebLogDO">
+
+    </select>
+    <select id="listWebLogs" resultType="com.pytap.project.model.WebLogDO">
+
+    </select>
 
 </mapper>

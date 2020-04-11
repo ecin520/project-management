@@ -13,6 +13,12 @@ import java.util.List;
 public interface RoleDao {
 
     /**
+     * 统计总数
+     * @return Integer
+     * */
+    Integer countRole();
+
+    /**
      * 插入角色
      * @param role 角色实体
      * @return Integer
@@ -35,14 +41,15 @@ public interface RoleDao {
 
     /**
      * 主键获得角色
-     * @param id 角色id
+     * @param queryParam 查询参数
      * @return Role 角色实体
      * */
-    Role getByRoleId(Long id);
+    Role getRole(Role queryParam);
 
     /**
      * 获取所有角色
      * @return List<Role>
      * */
     List<Role> listAllRoles();
+
 }

@@ -13,6 +13,12 @@ import java.util.List;
 public interface UserDao {
 
     /**
+     * 统计总数
+     * @return Integer
+     * */
+    Integer countUser();
+
+    /**
      * 插入用户
      * @param user 用户实体
      * @return Integer

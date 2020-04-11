@@ -13,6 +13,12 @@ import java.util.List;
 public interface UserRoleDao {
 
 	/**
+	 * 统计总数
+	 * @return Integer
+	 * */
+	Integer countUserRole();
+
+	/**
 	 * 插入用户角色关系
 	 * @param userRole 用户角色关系实体
 	 * @return Integer

@@ -1,18 +1,16 @@
 package com.pytap.project.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.pytap.project.annotation.WebLog;
 import com.pytap.project.entity.User;
 import com.pytap.project.service.UserService;
 import com.pytap.project.utils.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author Ecin520
@@ -28,8 +26,15 @@ public class UserController {
 	@Resource
 	private UserService userService;
 
+	@WebLog
+	@RequestMapping(value = "countUser", method = RequestMethod.GET)
+	public JSONObject countUser() {
+		return JsonUtil.backObject(200, userService.countUser());
+	}
+
+	@WebLog
 	@RequestMapping(value = "insertUser", method = RequestMethod.POST)
-	public JSONObject insertUser(User user) {
+	public JSONObject insertUser(@RequestBody User user) {
 		int result = userService.insertUser(user);
 		if (result == 1) {
 			return JsonUtil.success();
@@ -38,6 +43,7 @@ public class UserController {
 		return JsonUtil.fail();
 	}
 
+	@WebLog
 	@RequestMapping(value = "deleteByUserId", method = RequestMethod.POST)
 	public JSONObject deleteByUserId(Long id) {
 		int result = userService.deleteByUserId(id);
@@ -47,8 +53,10 @@ public class UserController {
 		return JsonUtil.fail();
 	}
 
+	@WebLog
 	@RequestMapping(value = "updateByUserId", method = RequestMethod.POST)
-	public JSONObject updateByUserId(User user) {
+	public JSONObject updateByUserId(@RequestBody User user) {
+		System.out.println(user.toString());
 		int result = userService.updateByUserId(user);
 		if (result == 1) {
 			return JsonUtil.success();
@@ -56,19 +64,23 @@ public class UserController {
 		return JsonUtil.fail();
 	}
 
+	@WebLog
 	@RequestMapping(value = "getByUserId", method = RequestMethod.POST)
-	public User getByUserId(Long id) {
-		return userService.getByUserId(id);
+	public JSONObject getByUserId(Long id) {
+		return JsonUtil.backObject(200, userService.getByUserId(id));
 	}
 
+	@WebLog
 	@RequestMapping(value = "getByUsername", method = RequestMethod.POST)
-	public User getByUsername(String username) {
-		return userService.getByUsername(username);
+	public JSONObject getByUsername(String username) {
+		return JsonUtil.backObject(200, userService.getByUsername(username));
 	}
 
+	@WebLog
 	@RequestMapping(value = "listAllUsers", method = RequestMethod.GET)
-	public JSONObject listAllUsers() {
-		return JsonUtil.backObject(200, userService.listAllUsers());
+	public JSONObject listAllUsers(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+	                               @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
+		return JsonUtil.backObject(200, userService.listAllUsers(pageNum, pageSize));
 	}
 
 }

@@ -13,6 +13,12 @@ import java.util.List;
 public interface RolePermissionDao {
 
 	/**
+	 * 统计总数
+	 * @return Integer
+	 * */
+	Integer countRolePermission();
+
+	/**
 	 * 插入角色权限关系
 	 * @param rolePermission 角色权限关系实体
 	 * @return Integer

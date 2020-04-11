@@ -33,6 +33,15 @@ public class GlobalException {
 	}
 
 	/**
+	 * 空指针异常
+	 * */
+	@ExceptionHandler(value = NullPointerException.class)
+	public JSONObject nullPointerException(NullPointerException e) {
+		e.printStackTrace();
+		return JsonUtil.backInfo(500, "空指针异常");
+	}
+
+	/**
 	 * 用户不存在
 	 * */
 	@ExceptionHandler(value = UsernameNotFoundException.class)

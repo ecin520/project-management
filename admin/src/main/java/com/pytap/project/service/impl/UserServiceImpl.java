@@ -1,11 +1,9 @@
 package com.pytap.project.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.pytap.project.dao.UserDao;
 import com.pytap.project.entity.User;
 import com.pytap.project.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,13 +19,16 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
-
     @Resource
     private PasswordEncoder passwordEncoder;
 
     @Resource
     private UserDao userDao;
+
+    @Override
+    public Integer countUser() {
+        return userDao.countUser();
+    }
 
     @Override
     @Transactional(rollbackFor = {RuntimeException.class, Error.class})
@@ -44,13 +45,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Integer deleteByUserId(Long id) {
-        logger.info("删除用户，id = {}", id);
         return userDao.deleteByUserId(id);
     }
 
     @Override
+    @Transactional(rollbackFor = {RuntimeException.class, Error.class})
     public Integer updateByUserId(User user) {
-        logger.info("更新用户，id = {}", user.getId());
+        User example = userDao.getByUserId(user.getId());
+        if (!example.getPassword().equals(user.getPassword())) {
+            String encryption = passwordEncoder.encode(user.getPassword());
+            user.setPassword(encryption);
+        }
+
         return userDao.updateByUserId(user);
     }
 
@@ -65,7 +71,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> listAllUsers() {
+    public List<User> listAllUsers(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         return userDao.listAllUsers();
     }
 }

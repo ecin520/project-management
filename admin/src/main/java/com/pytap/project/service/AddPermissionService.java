@@ -33,15 +33,15 @@ public interface AddPermissionService {
 
 	/**
 	 * 主键获得额外权限
-	 * @param id 额外权限id
+	 * @param queryParam 查询参数
 	 * @return AddPermission 额外权限实体
 	 * */
-	AddPermission getByAddPermissionId(Long id);
+	AddPermission getAddPermission(AddPermission queryParam);
 
 	/**
 	 * 获取所有额外权限
 	 * @return List<AddPermission>
 	 * */
-	List<AddPermission> listAllAddPermissions();
+	List<AddPermission> listAllAddPermissions(Integer pageNum, Integer pageSize);
 
 }
