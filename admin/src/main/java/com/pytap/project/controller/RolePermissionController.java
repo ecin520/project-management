@@ -6,6 +6,7 @@ import com.pytap.project.entity.RolePermission;
 import com.pytap.project.service.RolePermissionService;
 import com.pytap.project.utils.JsonUtil;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +25,7 @@ public class RolePermissionController {
 	@Resource
 	private RolePermissionService rolePermissionService;
 
-	@WebLog
+	@WebLog(value = "插入角色权限关系")
 	@RequestMapping(value = "insertRolePermission", method = RequestMethod.POST)
 	public JSONObject insertRolePermission(RolePermission rolePermission) {
 		int result = rolePermissionService.insertRolePermission(rolePermission);
@@ -34,17 +35,17 @@ public class RolePermissionController {
 		return JsonUtil.fail();
 	}
 
-	@WebLog
-	@RequestMapping(value = "deleteByRolePermissionId", method = RequestMethod.POST)
-	public JSONObject deleteByRolePermissionId(Long id) {
-		int result = rolePermissionService.deleteByRolePermissionId(id);
+	@WebLog(value = "删除角色权限关系")
+	@RequestMapping(value = "deleteByRolePermission", method = RequestMethod.POST)
+	public JSONObject deleteByRolePermission(@RequestBody RolePermission rolePermission) {
+		int result = rolePermissionService.deleteByRolePermission(rolePermission);
 		if (result == 1) {
 			return JsonUtil.success();
 		}
 		return JsonUtil.fail();
 	}
 
-	@WebLog
+	@WebLog(value = "更新角色权限关系")
 	@RequestMapping(value = "updateByRolePermissionId", method = RequestMethod.POST)
 	public JSONObject updateByRolePermissionId(RolePermission rolePermission) {
 		int result = rolePermissionService.updateByRolePermissionId(rolePermission);
@@ -54,13 +55,13 @@ public class RolePermissionController {
 		return JsonUtil.fail();
 	}
 
-	@WebLog
+	@WebLog(value = "获取角色权限关系")
 	@RequestMapping(value = "getByRolePermissionId", method = RequestMethod.POST)
 	public JSONObject getByRolePermissionId(Long id) {
 		return JsonUtil.backObject(200, rolePermissionService.getByRolePermissionId(id));
 	}
 
-	@WebLog
+	@WebLog(value = "获取所有角色权限关系")
 	@RequestMapping(value = "listAllRolePermissions", method = RequestMethod.GET)
 	public JSONObject listAllRolePermissions() {
 		return JsonUtil.backObject(200, rolePermissionService.listAllRolePermissions());

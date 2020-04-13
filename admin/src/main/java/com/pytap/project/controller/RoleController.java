@@ -22,13 +22,13 @@ public class RoleController {
 	@Resource
 	private RoleService roleService;
 
-	@WebLog
+	@WebLog(value = "获取角色总数量")
 	@RequestMapping(value = "countRole", method = RequestMethod.GET)
 	public JSONObject countUser() {
 		return JsonUtil.backObject(200, roleService.countRole());
 	}
 
-	@WebLog
+	@WebLog(value = "插入角色")
 	@RequestMapping(value = "insertRole", method = RequestMethod.POST)
 	public JSONObject insertRole(@RequestBody Role role) {
 		int result = roleService.insertRole(role);
@@ -38,7 +38,7 @@ public class RoleController {
 		return JsonUtil.fail();
 	}
 
-	@WebLog
+	@WebLog(value = "删除角色")
 	@RequestMapping(value = "deleteByRoleId", method = RequestMethod.POST)
 	public JSONObject deleteByRoleId(Long id){
 		int result = roleService.deleteByRoleId(id);
@@ -48,7 +48,7 @@ public class RoleController {
 		return JsonUtil.fail();
 	}
 
-	@WebLog
+	@WebLog(value = "更新角色")
 	@RequestMapping(value = "updateByRoleId", method = RequestMethod.POST)
 	public JSONObject updateByRoleId(@RequestBody Role role){
 		int result = roleService.updateByRoleId(role);
@@ -58,13 +58,13 @@ public class RoleController {
 		return JsonUtil.fail();
 	}
 
-	@WebLog
+	@WebLog(value = "获取角色")
 	@RequestMapping(value = "getRole", method = RequestMethod.POST)
 	public JSONObject getRole(Role role){
 		return JsonUtil.backObject(200, roleService.getRole(role));
 	}
 
-	@WebLog
+	@WebLog(value = "获取所有角色")
 	@RequestMapping(value = "listAllRoles", method = RequestMethod.GET)
 	public JSONObject listAllRoles(@RequestParam(value = "pageNum", defaultValue = "0") Integer pageNum,
 	                               @RequestParam(value = "pageSize", defaultValue = "0") Integer pageSize){

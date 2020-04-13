@@ -27,10 +27,10 @@ public interface RolePermissionDao {
 
 	/**
 	 * 删除角色权限关系
-	 * @param id 角色权限关系id
+	 * @param rolePermission 角色权限关系
 	 * @return Integer
 	 * */
-	Integer deleteByRolePermissionId(Long id);
+	Integer deleteByRolePermission(RolePermission rolePermission);
 
 	/**
 	 * 更新角色权限关系

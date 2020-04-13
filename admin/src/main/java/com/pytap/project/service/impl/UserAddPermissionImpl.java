@@ -31,8 +31,8 @@ public class UserAddPermissionImpl implements UserAddPermissionService {
 
 	@Override
 	@CacheEvict(allEntries = true)
-	public Integer deleteByUserAddPermissionId(Long id) {
-		return userAddPermissionDao.deleteByUserAddPermissionId(id);
+	public Integer deleteByUserAddPermission(UserAddPermission userAddPermission) {
+		return userAddPermissionDao.deleteByUserAddPermission(userAddPermission);
 	}
 
 	@Override

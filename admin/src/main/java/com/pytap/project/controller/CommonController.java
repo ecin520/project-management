@@ -46,14 +46,21 @@ public class CommonController {
 
 	private static final String SESSION_IMAGE_KEY = "ImageCode";
 
-	@WebLog(value = "登录接口")
+	@WebLog(value = "登录")
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public JSONObject login(HttpServletRequest request, String username, String password, String code) {
 
-		if (!code.toLowerCase().equals(
-				redisUtil.get(SESSION_IMAGE_KEY + request.getSession().getId()).toString().toLowerCase())) {
+		String redisCode = (String) redisUtil.get(SESSION_IMAGE_KEY + request.getSession().getId());
+
+		if (null == redisCode) {
+			return JsonUtil.backInfo(400, "验证码失效，请刷新验证码");
+		}
+
+		if (!code.toLowerCase().equals(redisCode.toLowerCase())) {
 			return JsonUtil.backInfo(400, "验证码输入有误，请重新输入");
 		}
+		// 从redis删除验证码
+		redisUtil.remove(SESSION_IMAGE_KEY + request.getSession().getId());
 
 		String token = adminUserService.login(username, password);
 		User user = userService.getByUsername(username);

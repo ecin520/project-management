@@ -27,10 +27,10 @@ public interface UserAddPermissionDao {
 
 	/**
 	 * 删除用户额外权限关系
-	 * @param id 用户额外权限关系id
+	 * @param userAddPermission 用户附加权限关系
 	 * @return Integer
 	 * */
-	Integer deleteByUserAddPermissionId(Long id);
+	Integer deleteByUserAddPermission(UserAddPermission userAddPermission);
 
 	/**
 	 * 更新用户额外权限关系

@@ -5,6 +5,7 @@ import com.pytap.project.dao.WebLogDao;
 import com.pytap.project.model.WebLogDO;
 import com.pytap.project.service.WebLogService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -19,9 +20,10 @@ public class WebLogServiceImpl implements WebLogService {
 	@Resource
 	private WebLogDao webLogDao;
 
+
 	@Override
-	public Integer insertWebLog(WebLogDO webLog) {
-		return webLogDao.insertWebLog(webLog);
+	public void insertWebLog(WebLogDO webLog) {
+		webLogDao.insertWebLog(webLog);
 	}
 
 	@Override
@@ -34,4 +36,12 @@ public class WebLogServiceImpl implements WebLogService {
 		PageHelper.startPage(pageNum, pageSize);
 		return webLogDao.listWebLogs();
 	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public Integer deleteAllWebLogs() {
+		return webLogDao.deleteAllWebLogs();
+	}
+
+
 }

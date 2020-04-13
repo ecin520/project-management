@@ -9,9 +9,7 @@ public class ImageUtil {
 	public static final String[] IMAGE_COLLECTION = {
 			"http://106.15.200.82/source/1584105924406.jpg",
 			"http://106.15.200.82/source/1583334767908.jpg",
-			"http://106.15.200.82/source/1586593631706.jpg",
 			"http://106.15.200.82/source/1586593664076.jpg",
-			"http://106.15.200.82/source/1586593714737.jpg",
 			"http://106.15.200.82/source/1586594176723.jpg",
 			"http://106.15.200.82/source/1586594216018.jpg",
 			"http://106.15.200.82/source/1586595019691.jpg",

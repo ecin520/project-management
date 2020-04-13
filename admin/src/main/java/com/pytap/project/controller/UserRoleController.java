@@ -25,7 +25,7 @@ public class UserRoleController {
 	@Resource
 	private UserRoleService userRoleService;
 
-	@WebLog
+	@WebLog(value = "插入用户角色关系")
 	@RequestMapping(value = "insertUserRole", method = RequestMethod.POST)
 	public JSONObject insertUserRole(UserRole userRole) {
 		int result = userRoleService.insertUserRole(userRole);
@@ -35,7 +35,7 @@ public class UserRoleController {
 		return JsonUtil.fail();
 	}
 
-	@WebLog
+	@WebLog(value = "删除用户角色关系")
 	@RequestMapping(value = "deleteByUserRole", method = RequestMethod.POST)
 	public JSONObject deleteByUserRole(@RequestBody UserRole userRole) {
 		int result = userRoleService.deleteByUserRole(userRole);
@@ -45,7 +45,7 @@ public class UserRoleController {
 		return JsonUtil.fail();
 	}
 
-	@WebLog
+	@WebLog(value = "更新用户角色关系")
 	@RequestMapping(value = "updateByUserRole", method = RequestMethod.POST)
 	public JSONObject updateByUserRoleId(UserRole userRole) {
 		int result = userRoleService.updateByUserRole(userRole);
@@ -55,13 +55,13 @@ public class UserRoleController {
 		return JsonUtil.fail();
 	}
 
-	@WebLog
+	@WebLog(value = "获取用户角色关系")
 	@RequestMapping(value = "getByUserRoleId", method = RequestMethod.POST)
 	public JSONObject getByUserRoleId(Long id) {
 		return JsonUtil.backObject(200, userRoleService.getByUserRoleId(id));
 	}
 
-	@WebLog
+	@WebLog(value = "获取所有用户角色关系")
 	@RequestMapping(value = "listAllUserRoles", method = RequestMethod.GET)
 	public JSONObject listAllUserRoles() {
 		return JsonUtil.backObject(200, userRoleService.listAllUserRoles());

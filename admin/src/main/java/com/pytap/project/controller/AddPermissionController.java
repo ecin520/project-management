@@ -35,7 +35,7 @@ public class AddPermissionController {
 		return JsonUtil.fail();
 	}
 
-	@WebLog(value = "通过id删除附加权限")
+	@WebLog(value = "除附加权限")
 	@RequestMapping(value = "deleteByAddPermissionId", method = RequestMethod.POST)
 	public JSONObject deleteByAddPermissionId(Long id) {
 		int result = addPermissionService.deleteByAddPermissionId(id);
@@ -55,7 +55,7 @@ public class AddPermissionController {
 		return JsonUtil.fail();
 	}
 
-	@WebLog(value = "通过id 或者 name 获取附加权限")
+	@WebLog(value = "获取附加权限")
 	@RequestMapping(value = "getAddPermission", method = RequestMethod.POST)
 	public JSONObject getAddPermission(AddPermission addPermission) {
 		return JsonUtil.backObject(200, addPermissionService.getAddPermission(addPermission));

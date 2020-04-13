@@ -3,7 +3,7 @@
 <mapper namespace="com.pytap.project.dao.PermissionDao">
 
     <insert id="insertPermission"  parameterType="com.pytap.project.entity.Permission">
-        INSERT INTO Permission (name, description, create_time)
+        INSERT INTO permission (name, description, create_time)
         VALUES (
             #{name}, #{description}, #{createTime}
         )

@@ -5,7 +5,6 @@ import com.pytap.project.dao.UserDao;
 import com.pytap.project.entity.User;
 import com.pytap.project.service.UserService;
 import com.pytap.project.utils.ImageUtil;
-import com.pytap.project.utils.RedisUtil;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -31,9 +30,6 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private UserDao userDao;
-
-    @Resource
-    private RedisUtil redisUtil;
 
     @Override
     @Cacheable
@@ -75,19 +71,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Cacheable
+    @Cacheable(key = "'by-id' + #id")
     public User getByUserId(Long id) {
         return userDao.getByUserId(id);
     }
 
     @Override
-    @Cacheable
+    @Cacheable(key = "'by-username' + #username")
     public User getByUsername(String username) {
         return userDao.getByUsername(username);
     }
 
     @Override
-    @Cacheable
+    @Cacheable(key = "'all-user'")
     public List<User> listAllUsers(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         return userDao.listAllUsers();

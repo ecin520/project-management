@@ -31,8 +31,8 @@ public class RolePermissionImpl implements RolePermissionService {
 
 	@Override
 	@CacheEvict(allEntries = true)
-	public Integer deleteByRolePermissionId(Long id) {
-		return rolePermissionDao.deleteByRolePermissionId(id);
+	public Integer deleteByRolePermission(RolePermission rolePermission) {
+		return rolePermissionDao.deleteByRolePermission(rolePermission);
 	}
 
 	@Override

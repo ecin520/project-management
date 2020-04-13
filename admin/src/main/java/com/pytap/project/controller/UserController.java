@@ -26,13 +26,13 @@ public class UserController {
 	@Resource
 	private UserService userService;
 
-	@WebLog
+	@WebLog(value = "获取用户总数量")
 	@RequestMapping(value = "countUser", method = RequestMethod.GET)
 	public JSONObject countUser() {
 		return JsonUtil.backObject(200, userService.countUser());
 	}
 
-	@WebLog
+	@WebLog(value = "插入用户")
 	@RequestMapping(value = "insertUser", method = RequestMethod.POST)
 	public JSONObject insertUser(@RequestBody User user) {
 		int result = userService.insertUser(user);
@@ -43,7 +43,7 @@ public class UserController {
 		return JsonUtil.fail();
 	}
 
-	@WebLog
+	@WebLog(value = "删除用户")
 	@RequestMapping(value = "deleteByUserId", method = RequestMethod.POST)
 	public JSONObject deleteByUserId(Long id) {
 		int result = userService.deleteByUserId(id);
@@ -53,7 +53,7 @@ public class UserController {
 		return JsonUtil.fail();
 	}
 
-	@WebLog
+	@WebLog(value = "更新用户")
 	@RequestMapping(value = "updateByUserId", method = RequestMethod.POST)
 	public JSONObject updateByUserId(@RequestBody User user) {
 		System.out.println(user.toString());
@@ -64,19 +64,19 @@ public class UserController {
 		return JsonUtil.fail();
 	}
 
-	@WebLog
+	@WebLog(value = "主键获取用户")
 	@RequestMapping(value = "getByUserId", method = RequestMethod.POST)
 	public JSONObject getByUserId(Long id) {
 		return JsonUtil.backObject(200, userService.getByUserId(id));
 	}
 
-	@WebLog
+	@WebLog(value = "用户名获取用户")
 	@RequestMapping(value = "getByUsername", method = RequestMethod.POST)
 	public JSONObject getByUsername(String username) {
 		return JsonUtil.backObject(200, userService.getByUsername(username));
 	}
 
-	@WebLog
+	@WebLog(value = "分页获取用户")
 	@RequestMapping(value = "listAllUsers", method = RequestMethod.GET)
 	public JSONObject listAllUsers(@RequestParam(value = "pageNum", defaultValue = "0") Integer pageNum,
 	                               @RequestParam(value = "pageSize", defaultValue = "0") Integer pageSize) {

@@ -3,13 +3,33 @@
 <mapper namespace="com.pytap.project.dao.WebLogDao">
 
     <insert id="insertWebLog">
-
+        INSERT INTO `web_log`(
+            description, username, method, spend_time, ip, result, create_time)
+        VALUES
+            (#{description}, #{username}, #{method}, #{spendTime}, #{ip}, #{result}, #{createTime})
     </insert>
     <select id="getWebLog" resultType="com.pytap.project.model.WebLogDO">
-
+        SELECT id, description, username, method, spend_time, ip, result, create_time
+        FROM `web_log`
+        <where>
+            <if test="id != null and id != ''">
+                id = #{id},
+            </if>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="method != null and method != ''">
+                method = #{method},
+            </if>
+            <if test="ip != null and ip != ''">
+                ip = #{ip}
+            </if>
+        </where>
     </select>
     <select id="listWebLogs" resultType="com.pytap.project.model.WebLogDO">
-
+        SELECT id, description, username, method, spend_time, ip, result, create_time FROM `web_log`
     </select>
-
+    <delete id="deleteAllWebLogs">
+        DELETE FROM `web_log`
+    </delete>
 </mapper>

@@ -7,7 +7,6 @@ import com.pytap.project.entity.Role;
 import com.pytap.project.model.dto.AuthDTO;
 import com.pytap.project.security.utils.JwtTokenUtil;
 import com.pytap.project.service.AdminUserService;
-import com.pytap.project.utils.RedisUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -45,11 +44,9 @@ public class AdminUserServiceImpl implements AdminUserService {
     @Resource
     private JwtTokenUtil jwtTokenUtil;
 
-    @Resource
-    private RedisUtil redisUtil;
-
     @Override
     public String login(String username, String password) {
+        System.out.println(passwordEncoder.encode(password));
         String token;
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         if (!passwordEncoder.matches(password, userDetails.getPassword())) {
@@ -84,7 +81,7 @@ public class AdminUserServiceImpl implements AdminUserService {
     }
 
     @Override
-    @Cacheable
+    @Cacheable(key = "'user-all-permission' + #id")
     public List<AuthDTO> listUserAllPermissions(Long id) {
         List<Permission> permissions = listUserPermissions(id);
         List<AddPermission> addPermissions = listUserAddPermissions(id);
@@ -109,7 +106,7 @@ public class AdminUserServiceImpl implements AdminUserService {
 
 
     @Override
-    @Cacheable
+    @Cacheable(key = "'user-all-role-permission' + #id")
     public List<AuthDTO> listUserAllRolePermissions(Long id) {
 
         List<AuthDTO> permissions = listUserAllPermissions(id);

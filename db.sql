@@ -4,14 +4,14 @@
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`(
 		`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
-		`username` VARCHAR(64) DEFAULT NULL,
+		`username` VARCHAR(64) UNIQUE NOT NULL,
 		`password` VARCHAR(64) DEFAULT NULL,
 		`avatar` VARCHAR(500) DEFAULT NULL COMMENT '头像',
 		`email` VARCHAR(100) DEFAULT NULL COMMENT '邮箱',
 		`nickname` VARCHAR(200) DEFAULT NULL COMMENT '昵称',
 		`note` VARCHAR(500) DEFAULT NULL COMMENT '备注信息',
-		`create_time` DATETIME DEFAULT NULL COMMENT '创建时间',
-		`login_time` DATETIME DEFAULT NULL COMMENT '最后登录时间',
+		`create_time` VARCHAR(50) DEFAULT NULL COMMENT '创建时间',
+		`login_time` VARCHAR(50) DEFAULT NULL COMMENT '最后登录时间',
 		`status` INT(1) DEFAULT 1 COMMENT '账户状态，1正常，0异常',
 		PRIMARY KEY (`id`)
 		) ENGINE=InnoDB AUTO_INCREMENT = 1000 DEFAULT CHARSET=utf8 COMMENT='用户表';
@@ -34,17 +34,17 @@ SELECT * FROM `user`;
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role`(
 		`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
-		`name` VARCHAR(64) DEFAULT NULL COMMENT '角色名称',
+		`name` VARCHAR(64) UNIQUE NOT NULL COMMENT '角色名称',
 		`description` VARCHAR(500) DEFAULT NULL COMMENT '角色描述',
-		`create_time` DATETIME DEFAULT NULL COMMENT '创建时间',
+		`create_time` VARCHAR(50) DEFAULT NULL COMMENT '创建时间',
 		PRIMARY KEY (`id`)
 		) ENGINE=InnoDB AUTO_INCREMENT = 1000 DEFAULT CHARSET=utf8 COMMENT='角色表';
 
-INSERT INTO `role` VALUES(1000, 'admin', '管理员', now());
+INSERT INTO `role` VALUES(1000, 'R_ADMIN', '管理员', now());
 
-INSERT INTO `role` VALUES(1001, 'user', '普通角色', now());
+INSERT INTO `role` VALUES(1001, 'R_USER', '普通角色', now());
 
-INSERT INTO `role` VALUES(1002, 'manager', '项目管理员', now());
+INSERT INTO `role` VALUES(1002, 'R_MANAGER', '项目管理员', now());
 
 SELECT * FROM `role`;
 
@@ -56,17 +56,17 @@ SELECT * FROM `role`;
 DROP TABLE IF EXISTS `permission`;
 CREATE TABLE `permission`(
 		`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
-		`name` VARCHAR(64) DEFAULT NULL COMMENT '权限名称',
+		`name` VARCHAR(64) UNIQUE NOT NULL COMMENT '权限名称',
 		`description` VARCHAR(500) DEFAULT NULL COMMENT '权限描述',
-		`create_time` DATETIME DEFAULT NULL COMMENT '创建时间',
+		`create_time` VARCHAR(50) DEFAULT NULL COMMENT '创建时间',
 		PRIMARY KEY (`id`)
 		) ENGINE=InnoDB AUTO_INCREMENT = 1000 DEFAULT CHARSET=utf8 COMMENT='权限表';
 
-INSERT INTO `permission` VALUES(1000, 'super', '最高权限', now());
+INSERT INTO `permission` VALUES(1000, 'P_SUPER', '最高权限', now());
 
-INSERT INTO `permission` VALUES(1001, 'normal', '普通权限，基于user的权限', now());
+INSERT INTO `permission` VALUES(1001, 'P_NORMAL', '普通权限，基于user的权限', now());
 
-INSERT INTO `permission` VALUES(1002, 'management', '管理权限，项目管理员的权限', now());
+INSERT INTO `permission` VALUES(1002, 'P_MANAGEMENT', '管理权限，项目管理员的权限', now());
 
 SELECT * FROM `permission`;
 
@@ -80,7 +80,7 @@ CREATE TABLE `user_role`(
 		`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
 		`user_id` BIGINT(20) DEFAULT NULL COMMENT '用户id',
 		`role_id` BIGINT(20) DEFAULT NULL COMMENT '角色id',
-		`create_time` DATETIME DEFAULT NULL COMMENT '创建时间',
+		`create_time` VARCHAR(50) DEFAULT NULL COMMENT '创建时间',
 		PRIMARY KEY (`id`)
 		) ENGINE=InnoDB AUTO_INCREMENT = 1000 DEFAULT CHARSET=utf8 COMMENT='用户角色表';
 
@@ -104,7 +104,7 @@ CREATE TABLE `role_permission`(
 		`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
 		`role_id` BIGINT(20) DEFAULT NULL COMMENT '角色id',
 		`permission_id` BIGINT(20) DEFAULT NULL COMMENT '权限id',
-		`create_time` DATETIME DEFAULT NULL COMMENT '创建时间',
+		`create_time` VARCHAR(50) DEFAULT NULL COMMENT '创建时间',
 		PRIMARY KEY (`id`)
 		) ENGINE=InnoDB AUTO_INCREMENT = 1000 DEFAULT CHARSET=utf8 COMMENT='角色权限表';
 
@@ -122,13 +122,13 @@ SELECT * FROM `role_permission`;
 DROP TABLE IF EXISTS `additional_permission`;
 CREATE TABLE `additional_permission`(
 		`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
-		`name` VARCHAR(64) DEFAULT NULL COMMENT '权限名称',
+		`name` VARCHAR(64) UNIQUE NOT NULL COMMENT '权限名称',
 		`description` VARCHAR(500) DEFAULT NULL COMMENT '权限描述',
-		`create_time` DATETIME DEFAULT NULL COMMENT '创建时间',
+		`create_time` VARCHAR(50) DEFAULT NULL COMMENT '创建时间',
 		PRIMARY KEY (`id`)
 		) ENGINE=InnoDB AUTO_INCREMENT = 1000 DEFAULT CHARSET=utf8 COMMENT='额外权限表';
 
-INSERT `additional_permission` VALUES(1000, 1000, '项目1000', NOW());
+INSERT `additional_permission` VALUES(1000, 'AP_1000', '项目1000', NOW());
 
 
 -- ----------------------------
@@ -139,15 +139,25 @@ CREATE TABLE `user_additional_permission`(
 		`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
 		`user_id` BIGINT(20) DEFAULT NULL COMMENT '用户id',
 		`additional_permission_id` BIGINT(20) DEFAULT NULL COMMENT '权限id',
-		`create_time` DATETIME DEFAULT NULL COMMENT '创建时间',
+		`create_time` VARCHAR(50) DEFAULT NULL COMMENT '创建时间',
 		PRIMARY KEY (`id`)
 		) ENGINE=InnoDB AUTO_INCREMENT = 1000 DEFAULT CHARSET=utf8 COMMENT='用户额外权限表';
 
 INSERT `user_additional_permission` VALUES(1000, 1001, 1000, NOW());
 
 
--- 根据用户id查询拥有角色
-SELECT r.`id`, r.`name`, r.`description`, r.`create_time` FROM `role` r, `user` u, `user_role` ur WHERE r.id = ur.`role_id` AND u.id = ur.`user_id` AND u.`id` = 1001;
+DROP TABLE IF EXISTS `web_log`;
+CREATE TABLE `web_log`(
+		`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+		`description` VARCHAR(3600) DEFAULT NULL COMMENT '接口描述',
+		`username` VARCHAR(300) DEFAULT NULL COMMENT '操作用户',
+		`method` VARCHAR(100) DEFAULT NULL COMMENT '操作方法',
+		`spend_time` BIGINT(20) DEFAULT NULL COMMENT '消耗时间',
+		`ip` VARCHAR(100) DEFAULT NULL COMMENT '操作ip',
+		`result` VARCHAR(3600) DEFAULT NULL COMMENT '操作结果',
+		`create_time` VARCHAR(50) DEFAULT NULL COMMENT '操作时间',
+		PRIMARY KEY (`id`)
+		) ENGINE=InnoDB AUTO_INCREMENT = 1000 DEFAULT CHARSET=utf8 COMMENT='web日志';
 
 -- 根据用户id查询拥有权限
 SELECT p.`id`, p.`name`, p.`description`, p.`create_time` FROM `permission` p, `role_permission` rp, `role` r WHERE p.`id` = rp.`permission_id` AND r.`id` = rp.`role_id` AND r.`id` IN (SELECT r.`id` FROM `role` r, `user` u, `user_role` ur WHERE r.`id` = ur.`role_id` AND u.`id` = ur.`user_id` AND u.`id` = 1001);

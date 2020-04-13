@@ -11,8 +11,18 @@
     <update id="updateByRolePermissionId">
         UPDATE role_permission SET role_id = #{roleId}, permission_id = #{permissionId}, create_time = #{createTime}
     </update>
-    <delete id="deleteByRolePermissionId">
-        DELETE FROM role_permission WHERE id = #{id}
+    <delete id="deleteByRolePermission">
+        DELETE FROM role_permission
+        <trim suffixOverrides=",">
+            <where>
+                <if test="id != null">
+                    id = #{id}
+                </if>
+                <if test="roleId != null and permissionId != null">
+                    role_id = #{roleId} AND permission_id = #{permissionId}
+                </if>
+            </where>
+        </trim>
     </delete>
     <select id="getByRolePermissionId" resultType="com.pytap.project.entity.RolePermission">
         SELECT id, role_id, permission_id, create_time FROM role_permission WHERE id = #{id}
