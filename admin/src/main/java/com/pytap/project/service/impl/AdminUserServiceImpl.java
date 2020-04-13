@@ -7,13 +7,13 @@ import com.pytap.project.entity.Role;
 import com.pytap.project.model.dto.AuthDTO;
 import com.pytap.project.security.utils.JwtTokenUtil;
 import com.pytap.project.service.AdminUserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.pytap.project.utils.RedisUtil;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -29,9 +29,9 @@ import java.util.List;
  * @date 2020/3/30 13:36
  */
 @Service
+@CacheConfig(cacheNames = {"admin"})
 public class AdminUserServiceImpl implements AdminUserService {
 
-    private static final Logger logger = LoggerFactory.getLogger(AdminUserServiceImpl.class);
 
     @Resource
     private AdminUserDao adminUserDao;
@@ -40,14 +40,17 @@ public class AdminUserServiceImpl implements AdminUserService {
     private UserDetailsService userDetailsService;
 
     @Resource
-    public PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Resource
-    public JwtTokenUtil jwtTokenUtil;
+    private JwtTokenUtil jwtTokenUtil;
+
+    @Resource
+    private RedisUtil redisUtil;
 
     @Override
     public String login(String username, String password) {
-        String token = null;
+        String token;
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         if (!passwordEncoder.matches(password, userDetails.getPassword())) {
             throw new BadCredentialsException("密码错误");
@@ -63,19 +66,28 @@ public class AdminUserServiceImpl implements AdminUserService {
     }
 
     @Override
+    @Cacheable(key = "'user-permission' + #id")
     public List<Permission> listUserPermissions(Long id) {
         return adminUserDao.listUserPermissions(id);
     }
 
     @Override
+    @Cacheable(key = "'user-add-permission' + #id")
     public List<AddPermission> listUserAddPermissions(Long id) {
         return adminUserDao.listUserAddPermissions(id);
     }
 
     @Override
+    @Cacheable(key = "'user-role' + #id")
+    public List<Role> listUserRoles(Long id) {
+        return adminUserDao.listUserRoles(id);
+    }
+
+    @Override
+    @Cacheable
     public List<AuthDTO> listUserAllPermissions(Long id) {
-        List<Permission> permissions = adminUserDao.listUserPermissions(id);
-        List<AddPermission> addPermissions = adminUserDao.listUserAddPermissions(id);
+        List<Permission> permissions = listUserPermissions(id);
+        List<AddPermission> addPermissions = listUserAddPermissions(id);
 
         List<AuthDTO> dtoList = new ArrayList<>(16);
 
@@ -94,12 +106,10 @@ public class AdminUserServiceImpl implements AdminUserService {
         return dtoList;
     }
 
-    @Override
-    public List<Role> listUserRoles(Long id) {
-        return adminUserDao.listUserRoles(id);
-    }
+
 
     @Override
+    @Cacheable
     public List<AuthDTO> listUserAllRolePermissions(Long id) {
 
         List<AuthDTO> permissions = listUserAllPermissions(id);

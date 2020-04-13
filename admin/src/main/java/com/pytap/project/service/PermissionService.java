@@ -11,6 +11,12 @@ import java.util.List;
 public interface PermissionService {
 
 	/**
+	 * 统计总数
+	 * @return Integer
+	 * */
+	Integer countPermission();
+
+	/**
 	 * 插入权限
 	 * @param permission 权限实体
 	 * @return Integer
@@ -40,6 +46,8 @@ public interface PermissionService {
 
 	/**
 	 * 获取所有权限
+	 * @param pageNum 第几页
+	 * @param pageSize 每页条目数量
 	 * @return List<Permission>
 	 * */
 	List<Permission> listAllPermissions(Integer pageNum, Integer pageSize);

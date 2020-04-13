@@ -6,10 +6,7 @@ import com.pytap.project.entity.Role;
 import com.pytap.project.service.RoleService;
 import com.pytap.project.utils.JsonUtil;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -26,8 +23,14 @@ public class RoleController {
 	private RoleService roleService;
 
 	@WebLog
+	@RequestMapping(value = "countRole", method = RequestMethod.GET)
+	public JSONObject countUser() {
+		return JsonUtil.backObject(200, roleService.countRole());
+	}
+
+	@WebLog
 	@RequestMapping(value = "insertRole", method = RequestMethod.POST)
-	public JSONObject insertRole(Role role) {
+	public JSONObject insertRole(@RequestBody Role role) {
 		int result = roleService.insertRole(role);
 		if (result == 1) {
 			return JsonUtil.success();
@@ -47,7 +50,7 @@ public class RoleController {
 
 	@WebLog
 	@RequestMapping(value = "updateByRoleId", method = RequestMethod.POST)
-	public JSONObject updateByRoleId(Role role){
+	public JSONObject updateByRoleId(@RequestBody Role role){
 		int result = roleService.updateByRoleId(role);
 		if (result == 1) {
 			return JsonUtil.success();
@@ -63,8 +66,8 @@ public class RoleController {
 
 	@WebLog
 	@RequestMapping(value = "listAllRoles", method = RequestMethod.GET)
-	public JSONObject listAllRoles(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-	                               @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize){
+	public JSONObject listAllRoles(@RequestParam(value = "pageNum", defaultValue = "0") Integer pageNum,
+	                               @RequestParam(value = "pageSize", defaultValue = "0") Integer pageSize){
 		return JsonUtil.backObject(200, roleService.listAllRoles(pageNum, pageSize));
 	}
 

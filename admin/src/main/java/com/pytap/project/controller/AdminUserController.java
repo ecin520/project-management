@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.pytap.project.annotation.WebLog;
 import com.pytap.project.service.AdminUserService;
 import com.pytap.project.utils.JsonUtil;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

@@ -78,8 +78,8 @@ public class UserController {
 
 	@WebLog
 	@RequestMapping(value = "listAllUsers", method = RequestMethod.GET)
-	public JSONObject listAllUsers(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-	                               @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
+	public JSONObject listAllUsers(@RequestParam(value = "pageNum", defaultValue = "0") Integer pageNum,
+	                               @RequestParam(value = "pageSize", defaultValue = "0") Integer pageSize) {
 		return JsonUtil.backObject(200, userService.listAllUsers(pageNum, pageSize));
 	}
 

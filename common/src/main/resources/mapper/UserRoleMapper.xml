@@ -3,15 +3,26 @@
 <mapper namespace="com.pytap.project.dao.UserRoleDao">
 
     <insert id="insertUserRole">
-        INSERT INTO user_role (
-            user_id, role_id, create_time)
-        VALUES (#{userId}, #{roleId}, #{createTime})
+        INSERT INTO user_role (user_id, role_id, create_time)
+        VALUES (
+            #{userId}, #{roleId}, #{createTime}
+        )
     </insert>
-    <update id="updateByUserRoleId">
+    <update id="updateByUserRole">
         UPDATE user_role SET user_id = #{userId}, role_id = #{roleId}, create_time = #{createTime}
     </update>
-    <delete id="deleteByUserRoleId">
-        DELETE FROM user_role WHERE id = #{id}
+    <delete id="deleteByUserRole">
+        DELETE FROM user_role
+        <trim suffixOverrides=",">
+            <where>
+                <if test="id != null">
+                    id = #{id}
+                </if>
+                <if test="userId != null and roleId != null">
+                    user_id = #{userId} AND role_id = #{roleId}
+                </if>
+            </where>
+        </trim>
     </delete>
     <select id="getByUserRoleId" resultType="com.pytap.project.entity.UserRole">
         SELECT id, user_id, role_id, create_time FROM user_role WHERE id = #{id}

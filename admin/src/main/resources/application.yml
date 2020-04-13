@@ -27,6 +27,16 @@ spring:
         login-password: qwer1234
   aop:
     auto: true
+  redis:
+    host: localhost
+    port: 6379
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 8
+    timeout: 3000ms
 
 logging:
   level:

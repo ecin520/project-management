@@ -4,6 +4,9 @@ import com.github.pagehelper.PageHelper;
 import com.pytap.project.dao.PermissionDao;
 import com.pytap.project.entity.Permission;
 import com.pytap.project.service.PermissionService;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -19,6 +22,11 @@ public class PermissionServiceImpl implements PermissionService {
 
 	@Resource
 	private PermissionDao permissionDao;
+
+	@Override
+	public Integer countPermission() {
+		return permissionDao.countPermission();
+	}
 
 	@Override
 	public Integer insertPermission(Permission permission) {

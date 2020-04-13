@@ -27,17 +27,17 @@ public interface UserRoleDao {
 
 	/**
 	 * 删除用户角色关系
-	 * @param id 用户角色关系id
+	 * @param userRole 用户角色关系实体
 	 * @return Integer
 	 * */
-	Integer deleteByUserRoleId(Long id);
+	Integer deleteByUserRole(UserRole userRole);
 
 	/**
 	 * 更新用户角色关系
 	 * @param userRole 用户角色关系实体
 	 * @return Integer
 	 * */
-	Integer updateByUserRoleId(UserRole userRole);
+	Integer updateByUserRole(UserRole userRole);
 
 	/**
 	 * 主键获得用户角色关系

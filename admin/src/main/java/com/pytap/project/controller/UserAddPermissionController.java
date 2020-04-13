@@ -1,6 +1,5 @@
 package com.pytap.project.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.pytap.project.annotation.WebLog;
 import com.pytap.project.entity.UserAddPermission;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author Ecin520

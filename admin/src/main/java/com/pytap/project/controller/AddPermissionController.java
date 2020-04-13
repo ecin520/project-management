@@ -5,11 +5,9 @@ import com.pytap.project.annotation.WebLog;
 import com.pytap.project.entity.AddPermission;
 import com.pytap.project.service.AddPermissionService;
 import com.pytap.project.utils.JsonUtil;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -65,8 +63,7 @@ public class AddPermissionController {
 
 	@WebLog(value = "列出所有附加权限")
 	@RequestMapping(value = "listAllAddPermissions", method = RequestMethod.GET)
-	public JSONObject listAllAddPermissions(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-	                                        @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
-		return JsonUtil.backObject(200, addPermissionService.listAllAddPermissions(pageNum, pageSize));
+	public JSONObject listAllAddPermissions() {
+		return JsonUtil.backObject(200, addPermissionService.listAllAddPermissions());
 	}
 }

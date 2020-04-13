@@ -5,9 +5,7 @@
     <insert id="insertPermission"  parameterType="com.pytap.project.entity.Permission">
         INSERT INTO Permission (name, description, create_time)
         VALUES (
-            name = #{name},
-            description = #{description},
-            create_time = #{createTime}
+            #{name}, #{description}, #{createTime}
         )
     </insert>
     <update id="updateByPermissionId" parameterType="com.pytap.project.entity.Permission">

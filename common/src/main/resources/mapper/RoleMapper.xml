@@ -3,11 +3,9 @@
 <mapper namespace="com.pytap.project.dao.RoleDao">
 
     <insert id="insertRole"  parameterType="com.pytap.project.entity.Role">
-        INSERT INTO (name, description, create_time)
+        INSERT INTO role (name, description, create_time)
         VALUES (
-            name = #{name},
-            description = #{description},
-            create_time = #{createTime}
+            #{name}, #{description}, #{createTime}
         )
     </insert>
     <update id="updateByRoleId" parameterType="com.pytap.project.entity.Role">

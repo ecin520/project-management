@@ -1,9 +1,9 @@
 package com.pytap.project.service.impl;
 
-import com.github.pagehelper.PageHelper;
 import com.pytap.project.dao.AddPermissionDao;
 import com.pytap.project.entity.AddPermission;
 import com.pytap.project.service.AddPermissionService;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -42,8 +42,7 @@ public class AddPermissionServiceImpl implements AddPermissionService {
 	}
 
 	@Override
-	public List<AddPermission> listAllAddPermissions(Integer pageNum, Integer pageSize) {
-		PageHelper.startPage(pageNum, pageSize);
+	public List<AddPermission> listAllAddPermissions() {
 		return addPermissionDao.listAllAddPermissions();
 	}
 }

@@ -6,6 +6,7 @@ import com.pytap.project.entity.UserRole;
 import com.pytap.project.service.UserRoleService;
 import com.pytap.project.utils.JsonUtil;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,9 +36,9 @@ public class UserRoleController {
 	}
 
 	@WebLog
-	@RequestMapping(value = "deleteByUserRoleId", method = RequestMethod.POST)
-	public JSONObject deleteByUserRoleId(Long id) {
-		int result = userRoleService.deleteByUserRoleId(id);
+	@RequestMapping(value = "deleteByUserRole", method = RequestMethod.POST)
+	public JSONObject deleteByUserRole(@RequestBody UserRole userRole) {
+		int result = userRoleService.deleteByUserRole(userRole);
 		if (result == 1) {
 			return JsonUtil.success();
 		}
@@ -45,9 +46,9 @@ public class UserRoleController {
 	}
 
 	@WebLog
-	@RequestMapping(value = "updateByUserRoleId", method = RequestMethod.POST)
+	@RequestMapping(value = "updateByUserRole", method = RequestMethod.POST)
 	public JSONObject updateByUserRoleId(UserRole userRole) {
-		int result = userRoleService.updateByUserRoleId(userRole);
+		int result = userRoleService.updateByUserRole(userRole);
 		if (result == 1) {
 			return JsonUtil.success();
 		}

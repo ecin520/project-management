@@ -40,8 +40,9 @@ public interface AddPermissionService {
 
 	/**
 	 * 获取所有额外权限
+	 *
 	 * @return List<AddPermission>
 	 * */
-	List<AddPermission> listAllAddPermissions(Integer pageNum, Integer pageSize);
+	List<AddPermission> listAllAddPermissions();
 
 }

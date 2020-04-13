@@ -11,6 +11,12 @@ import java.util.List;
 public interface RoleService {
 
 	/**
+	 * 统计总数
+	 * @return Integer
+	 * */
+	Integer countRole();
+
+	/**
 	 * 插入角色
 	 * @param role 角色实体
 	 * @return Integer
@@ -40,6 +46,8 @@ public interface RoleService {
 
 	/**
 	 * 获取所有角色
+	 * @param pageNum 第几页
+	 * @param pageSize 每页条目数量
 	 * @return List<Role>
 	 * */
 	List<Role> listAllRoles(Integer pageNum, Integer pageSize);

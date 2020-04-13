@@ -6,10 +6,7 @@ import com.pytap.project.entity.Permission;
 import com.pytap.project.service.PermissionService;
 import com.pytap.project.utils.JsonUtil;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -26,8 +23,14 @@ public class PermissionController {
 	private PermissionService permissionService;
 
 	@WebLog
+	@RequestMapping(value = "countPermission", method = RequestMethod.GET)
+	public JSONObject countUser() {
+		return JsonUtil.backObject(200, permissionService.countPermission());
+	}
+
+	@WebLog
 	@RequestMapping(value = "insertPermission", method = RequestMethod.POST)
-	public JSONObject insertPermission(Permission permission) {
+	public JSONObject insertPermission(@RequestBody Permission permission) {
 		int result = permissionService.insertPermission(permission);
 		if (result == 1) {
 			return JsonUtil.success();
@@ -47,7 +50,7 @@ public class PermissionController {
 
 	@WebLog
 	@RequestMapping(value = "updateByPermissionId", method = RequestMethod.POST)
-	public JSONObject updateByPermissionId(Permission permission) {
+	public JSONObject updateByPermissionId(@RequestBody Permission permission) {
 		int result = permissionService.updateByPermissionId(permission);
 		if (result == 1) {
 			return JsonUtil.success();
@@ -63,8 +66,8 @@ public class PermissionController {
 
 	@WebLog
 	@RequestMapping(value = "listAllPermissions", method = RequestMethod.GET)
-	public  JSONObject listAllPermissions(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-	                                      @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
+	public  JSONObject listAllPermissions(@RequestParam(value = "pageNum", defaultValue = "0") Integer pageNum,
+	                                      @RequestParam(value = "pageSize", defaultValue = "0") Integer pageSize) {
 		return JsonUtil.backObject(200, permissionService.listAllPermissions(pageNum, pageSize));
 	}
 

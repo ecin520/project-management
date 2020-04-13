@@ -21,6 +21,11 @@ public class RoleServiceImpl implements RoleService {
 	private RoleDao roleDao;
 
 	@Override
+	public Integer countRole() {
+		return roleDao.countRole();
+	}
+
+	@Override
 	public Integer insertRole(Role role) {
 		role.setCreateTime(new Date());
 		return roleDao.insertRole(role);
