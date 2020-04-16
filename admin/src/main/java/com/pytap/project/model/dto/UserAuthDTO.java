@@ -2,6 +2,7 @@ package com.pytap.project.model.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,7 +13,7 @@ import java.util.List;
  * @author Ecin520
  * @date 2020/3/23 21:31
  */
-@Getter @Setter
+@Getter @Setter @ToString
 public class UserAuthDTO implements Serializable {
 
     private static final long serialVersionUID = 4877789057808254537L;
@@ -28,19 +29,4 @@ public class UserAuthDTO implements Serializable {
     private Integer status;
     private List<AuthDTO> permission;
 
-    @Override
-    public String toString() {
-        return "UserDTO{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", avatar='" + avatar + '\'' +
-                ", email='" + email + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", note='" + note + '\'' +
-                ", createTime=" + createTime +
-                ", loginTime=" + loginTime +
-                ", status=" + status +
-                ", permission=" + permission +
-                '}';
-    }
 }

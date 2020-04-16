@@ -1,7 +1,7 @@
 package com.pytap.project.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.pytap.project.annotation.WebLog;
+import com.pytap.project.annotation.Log;
 import com.pytap.project.entity.Role;
 import com.pytap.project.service.RoleService;
 import com.pytap.project.utils.JsonUtil;
@@ -22,13 +22,13 @@ public class RoleController {
 	@Resource
 	private RoleService roleService;
 
-	@WebLog(value = "获取角色总数量")
+	@Log(value = "获取角色总数量")
 	@RequestMapping(value = "countRole", method = RequestMethod.GET)
 	public JSONObject countUser() {
 		return JsonUtil.backObject(200, roleService.countRole());
 	}
 
-	@WebLog(value = "插入角色")
+	@Log(value = "插入角色")
 	@RequestMapping(value = "insertRole", method = RequestMethod.POST)
 	public JSONObject insertRole(@RequestBody Role role) {
 		int result = roleService.insertRole(role);
@@ -38,7 +38,7 @@ public class RoleController {
 		return JsonUtil.fail();
 	}
 
-	@WebLog(value = "删除角色")
+	@Log(value = "删除角色")
 	@RequestMapping(value = "deleteByRoleId", method = RequestMethod.POST)
 	public JSONObject deleteByRoleId(Long id){
 		int result = roleService.deleteByRoleId(id);
@@ -48,7 +48,7 @@ public class RoleController {
 		return JsonUtil.fail();
 	}
 
-	@WebLog(value = "更新角色")
+	@Log(value = "更新角色")
 	@RequestMapping(value = "updateByRoleId", method = RequestMethod.POST)
 	public JSONObject updateByRoleId(@RequestBody Role role){
 		int result = roleService.updateByRoleId(role);
@@ -58,13 +58,13 @@ public class RoleController {
 		return JsonUtil.fail();
 	}
 
-	@WebLog(value = "获取角色")
+	@Log(value = "获取角色")
 	@RequestMapping(value = "getRole", method = RequestMethod.POST)
 	public JSONObject getRole(Role role){
 		return JsonUtil.backObject(200, roleService.getRole(role));
 	}
 
-	@WebLog(value = "获取所有角色")
+	@Log(value = "获取所有角色")
 	@RequestMapping(value = "listAllRoles", method = RequestMethod.GET)
 	public JSONObject listAllRoles(@RequestParam(value = "pageNum", defaultValue = "0") Integer pageNum,
 	                               @RequestParam(value = "pageSize", defaultValue = "0") Integer pageSize){

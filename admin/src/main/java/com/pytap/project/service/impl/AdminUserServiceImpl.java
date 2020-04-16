@@ -46,7 +46,6 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     public String login(String username, String password) {
-        System.out.println(passwordEncoder.encode(password));
         String token;
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         if (!passwordEncoder.matches(password, userDetails.getPassword())) {
@@ -128,6 +127,12 @@ public class AdminUserServiceImpl implements AdminUserService {
         }
 
         return dtoList;
+    }
+
+    @Override
+    @Cacheable(key = "'role-permission' + #id")
+    public List<Permission> listRolePermissions(Long id) {
+        return adminUserDao.listRolePermissions(id);
     }
 
 }

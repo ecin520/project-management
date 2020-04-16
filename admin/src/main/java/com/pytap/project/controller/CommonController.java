@@ -1,7 +1,7 @@
 package com.pytap.project.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.pytap.project.annotation.WebLog;
+import com.pytap.project.annotation.Log;
 import com.pytap.project.entity.User;
 import com.pytap.project.model.dto.AuthDTO;
 import com.pytap.project.model.dto.UserAuthDTO;
@@ -13,7 +13,6 @@ import com.pytap.project.utils.JsonUtil;
 import com.pytap.project.utils.RedisUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,7 +45,7 @@ public class CommonController {
 
 	private static final String SESSION_IMAGE_KEY = "ImageCode";
 
-	@WebLog(value = "登录")
+	@Log(value = "登录")
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public JSONObject login(HttpServletRequest request, String username, String password, String code) {
 
@@ -59,6 +58,7 @@ public class CommonController {
 		if (!code.toLowerCase().equals(redisCode.toLowerCase())) {
 			return JsonUtil.backInfo(400, "验证码输入有误，请重新输入");
 		}
+
 		// 从redis删除验证码
 		redisUtil.remove(SESSION_IMAGE_KEY + request.getSession().getId());
 
@@ -76,18 +76,18 @@ public class CommonController {
 		throw new AccessDeniedException("账户无访问权限，请联系管理员");
 	}
 
-	@WebLog(value = "生成验证码")
+	@Log(value = "生成验证码")
 	@RequestMapping(value = "/createImageCode", method = RequestMethod.GET)
 	public void createImageCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		CaptchaUtil captchaUtil = new CaptchaUtil();
 		CaptchaImage captchaImage = captchaUtil.createRandCode();
 
-		redisUtil.set(SESSION_IMAGE_KEY + request.getSession().getId(), captchaImage.getResult(), 60);
+		redisUtil.set(SESSION_IMAGE_KEY + request.getSession().getId(), captchaImage.getResult(), 120);
 
 		ImageIO.write(captchaImage.getBufferedImage(), "JPEG", response.getOutputStream());
 	}
 
-	@WebLog
+	@Log
 	@RequestMapping(value = "auth-project", method = RequestMethod.POST)
 	@PreAuthorize("hasAuthority('AP_' + #id)")
 	@ApiOperation(value = "测试权限")

@@ -17,21 +17,28 @@ public interface AdminUserDao {
     /**
      * 根据用户id获取权限
      * @param id 用户id
-     * @return List<PermissionDO>
+     * @return List<Permission>
      * */
     List<Permission> listUserPermissions(Long id);
 
     /**
      * 根据用户id获取额外权限
      * @param id 用户id
-     * @return List<PermissionDO>
+     * @return List<Permission>
      * */
     List<AddPermission> listUserAddPermissions(Long id);
 
     /**
      * 根据用户id获取角色
      * @param id 用户id
-     * @return List<RoleDO>
+     * @return List<Role>
      * */
     List<Role> listUserRoles(Long id);
+
+    /**
+     * 根据角色id获取权限
+     * @param id 角色id
+     * @return List<Permission>
+     * */
+    List<Permission> listRolePermissions(Long id);
 }

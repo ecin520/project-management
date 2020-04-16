@@ -1,7 +1,7 @@
 package com.pytap.project.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.pytap.project.annotation.WebLog;
+import com.pytap.project.annotation.Log;
 import com.pytap.project.entity.AddPermission;
 import com.pytap.project.service.AddPermissionService;
 import com.pytap.project.utils.JsonUtil;
@@ -24,7 +24,7 @@ public class AddPermissionController {
 	@Resource
 	private AddPermissionService addPermissionService;
 
-	@WebLog(value = "插入权限")
+	@Log(value = "插入权限")
 	@RequestMapping(value = "insertAddPermission", method = RequestMethod.POST)
 	public JSONObject insertAddPermission(AddPermission addPermission) {
 		System.out.println(addPermission.toString());
@@ -35,7 +35,7 @@ public class AddPermissionController {
 		return JsonUtil.fail();
 	}
 
-	@WebLog(value = "除附加权限")
+	@Log(value = "除附加权限")
 	@RequestMapping(value = "deleteByAddPermissionId", method = RequestMethod.POST)
 	public JSONObject deleteByAddPermissionId(Long id) {
 		int result = addPermissionService.deleteByAddPermissionId(id);
@@ -45,7 +45,7 @@ public class AddPermissionController {
 		return JsonUtil.fail();
 	}
 
-	@WebLog(value = "更新附加权限")
+	@Log(value = "更新附加权限")
 	@RequestMapping(value = "updateByAddPermissionId", method = RequestMethod.POST)
 	public JSONObject updateByAddPermissionId(AddPermission addPermission) {
 		int result = addPermissionService.updateByAddPermissionId(addPermission);
@@ -55,13 +55,13 @@ public class AddPermissionController {
 		return JsonUtil.fail();
 	}
 
-	@WebLog(value = "获取附加权限")
+	@Log(value = "获取附加权限")
 	@RequestMapping(value = "getAddPermission", method = RequestMethod.POST)
 	public JSONObject getAddPermission(AddPermission addPermission) {
 		return JsonUtil.backObject(200, addPermissionService.getAddPermission(addPermission));
 	}
 
-	@WebLog(value = "列出所有附加权限")
+	@Log(value = "列出所有附加权限")
 	@RequestMapping(value = "listAllAddPermissions", method = RequestMethod.GET)
 	public JSONObject listAllAddPermissions() {
 		return JsonUtil.backObject(200, addPermissionService.listAllAddPermissions());

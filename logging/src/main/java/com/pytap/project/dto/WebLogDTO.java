@@ -1,4 +1,4 @@
-package com.pytap.project.model;
+package com.pytap.project.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,13 +11,15 @@ import java.io.Serializable;
  * @date 2020/4/7 2:17
  */
 @Getter @Setter @ToString
-public class WebLogDO implements Serializable {
+public class WebLogDTO implements Serializable {
 
 	private static final long serialVersionUID = 2618996880016222510L;
 
-	private Integer id;
-	private String description;
+	private Long id;
+	private String message;
 	private String username;
+	private String param;
+	private String url;
 	private String method;
 	private Long spendTime;
 	private String ip;

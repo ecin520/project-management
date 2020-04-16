@@ -12,17 +12,7 @@
         UPDATE user_role SET user_id = #{userId}, role_id = #{roleId}, create_time = #{createTime}
     </update>
     <delete id="deleteByUserRole">
-        DELETE FROM user_role
-        <trim suffixOverrides=",">
-            <where>
-                <if test="id != null">
-                    id = #{id}
-                </if>
-                <if test="userId != null and roleId != null">
-                    user_id = #{userId} AND role_id = #{roleId}
-                </if>
-            </where>
-        </trim>
+        DELETE FROM user_role WHERE user_id = #{userId} AND role_id = #{roleId}
     </delete>
     <select id="getByUserRoleId" resultType="com.pytap.project.entity.UserRole">
         SELECT id, user_id, role_id, create_time FROM user_role WHERE id = #{id}

@@ -1,7 +1,7 @@
 package com.pytap.project.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.pytap.project.annotation.WebLog;
+import com.pytap.project.annotation.Log;
 import com.pytap.project.entity.User;
 import com.pytap.project.service.UserService;
 import com.pytap.project.utils.JsonUtil;
@@ -26,13 +26,13 @@ public class UserController {
 	@Resource
 	private UserService userService;
 
-	@WebLog(value = "获取用户总数量")
+	@Log(value = "获取用户总数量")
 	@RequestMapping(value = "countUser", method = RequestMethod.GET)
 	public JSONObject countUser() {
 		return JsonUtil.backObject(200, userService.countUser());
 	}
 
-	@WebLog(value = "插入用户")
+	@Log(value = "插入用户")
 	@RequestMapping(value = "insertUser", method = RequestMethod.POST)
 	public JSONObject insertUser(@RequestBody User user) {
 		int result = userService.insertUser(user);
@@ -43,7 +43,7 @@ public class UserController {
 		return JsonUtil.fail();
 	}
 
-	@WebLog(value = "删除用户")
+	@Log(value = "删除用户")
 	@RequestMapping(value = "deleteByUserId", method = RequestMethod.POST)
 	public JSONObject deleteByUserId(Long id) {
 		int result = userService.deleteByUserId(id);
@@ -53,7 +53,7 @@ public class UserController {
 		return JsonUtil.fail();
 	}
 
-	@WebLog(value = "更新用户")
+	@Log(value = "更新用户")
 	@RequestMapping(value = "updateByUserId", method = RequestMethod.POST)
 	public JSONObject updateByUserId(@RequestBody User user) {
 		System.out.println(user.toString());
@@ -64,19 +64,19 @@ public class UserController {
 		return JsonUtil.fail();
 	}
 
-	@WebLog(value = "主键获取用户")
+	@Log(value = "主键获取用户")
 	@RequestMapping(value = "getByUserId", method = RequestMethod.POST)
 	public JSONObject getByUserId(Long id) {
 		return JsonUtil.backObject(200, userService.getByUserId(id));
 	}
 
-	@WebLog(value = "用户名获取用户")
+	@Log(value = "用户名获取用户")
 	@RequestMapping(value = "getByUsername", method = RequestMethod.POST)
 	public JSONObject getByUsername(String username) {
 		return JsonUtil.backObject(200, userService.getByUsername(username));
 	}
 
-	@WebLog(value = "分页获取用户")
+	@Log(value = "分页获取用户")
 	@RequestMapping(value = "listAllUsers", method = RequestMethod.GET)
 	public JSONObject listAllUsers(@RequestParam(value = "pageNum", defaultValue = "0") Integer pageNum,
 	                               @RequestParam(value = "pageSize", defaultValue = "0") Integer pageSize) {

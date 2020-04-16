@@ -1,6 +1,6 @@
 package com.pytap.project.service;
 
-import com.pytap.project.model.WebLogDO;
+import com.pytap.project.dto.WebLogDTO;
 
 import java.util.List;
 
@@ -12,24 +12,21 @@ public interface WebLogService {
 
 	/**
 	 * 插入日志信息
-	 * @param webLog 日志信息
-	 * */
-	void insertWebLog(WebLogDO webLog);
+	 * @param webLog 日志信息 */
+	void insertWebLog(WebLogDTO webLog);
 
 	/**
 	 * 获取web日志
-	 * @param webLogDO 日志对象
-	 * @return WebLogDO
+	 * @param webLogDTO 日志对象
+	 * @return List<WebLogDO>
 	 * */
-	WebLogDO getWebLog(WebLogDO webLogDO);
+	List<WebLogDTO> getWebLogs(WebLogDTO webLogDTO);
 
 	/**
 	 * 返回所有web日志
-	 * @param pageNum 第几页
-	 * @param pageSize 每页数量
 	 * @return List<WebLogDO>
 	 * */
-	List<WebLogDO> listWebLogs(Integer pageNum, Integer pageSize);
+	List<Object> listWebLogs();
 
 	/**
 	 * 清空日志

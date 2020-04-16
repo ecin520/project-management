@@ -1,7 +1,7 @@
 package com.pytap.project.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.pytap.project.annotation.WebLog;
+import com.pytap.project.annotation.Log;
 import com.pytap.project.entity.Permission;
 import com.pytap.project.service.PermissionService;
 import com.pytap.project.utils.JsonUtil;
@@ -22,13 +22,13 @@ public class PermissionController {
 	@Resource
 	private PermissionService permissionService;
 
-	@WebLog(value = "获取权限总数量")
+	@Log(value = "获取权限总数量")
 	@RequestMapping(value = "countPermission", method = RequestMethod.GET)
 	public JSONObject countUser() {
 		return JsonUtil.backObject(200, permissionService.countPermission());
 	}
 
-	@WebLog(value = "插入权限")
+	@Log(value = "插入权限")
 	@RequestMapping(value = "insertPermission", method = RequestMethod.POST)
 	public JSONObject insertPermission(@RequestBody Permission permission) {
 		int result = permissionService.insertPermission(permission);
@@ -38,7 +38,7 @@ public class PermissionController {
 		return JsonUtil.fail();
 	}
 
-	@WebLog(value = "删除权限")
+	@Log(value = "删除权限")
 	@RequestMapping(value = "deleteByPermissionId", method = RequestMethod.POST)
 	public JSONObject deleteByPermissionId(Long id) {
 		int result = permissionService.deleteByPermissionId(id);
@@ -48,7 +48,7 @@ public class PermissionController {
 		return JsonUtil.fail();
 	}
 
-	@WebLog(value = "更新权限")
+	@Log(value = "更新权限")
 	@RequestMapping(value = "updateByPermissionId", method = RequestMethod.POST)
 	public JSONObject updateByPermissionId(@RequestBody Permission permission) {
 		int result = permissionService.updateByPermissionId(permission);
@@ -58,13 +58,13 @@ public class PermissionController {
 		return JsonUtil.fail();
 	}
 
-	@WebLog(value = "获取权限")
+	@Log(value = "获取权限")
 	@RequestMapping(value = "getPermission", method = RequestMethod.POST)
 	public JSONObject getPermission(Permission permission) {
 		return JsonUtil.backObject(200, permissionService.getPermission(permission));
 	}
 
-	@WebLog(value = "获取所有权限")
+	@Log(value = "获取所有权限")
 	@RequestMapping(value = "listAllPermissions", method = RequestMethod.GET)
 	public  JSONObject listAllPermissions(@RequestParam(value = "pageNum", defaultValue = "0") Integer pageNum,
 	                                      @RequestParam(value = "pageSize", defaultValue = "0") Integer pageSize) {

@@ -56,7 +56,7 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	@Cacheable(key = "'list-all-role'")
+	@Cacheable(key = "'list-all-role' + #pageNum + '-' + #pageSize")
 	public List<Role> listAllRoles(Integer pageNum, Integer pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
 		return roleDao.listAllRoles();

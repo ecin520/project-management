@@ -8,7 +8,7 @@
         VALUES
             (#{description}, #{username}, #{method}, #{spendTime}, #{ip}, #{result}, #{createTime})
     </insert>
-    <select id="getWebLog" resultType="com.pytap.project.model.WebLogDO">
+    <select id="getWebLog" resultType="com.pytap.project.dto.WebLogDTO">
         SELECT id, description, username, method, spend_time, ip, result, create_time
         FROM `web_log`
         <where>
@@ -26,7 +26,7 @@
             </if>
         </where>
     </select>
-    <select id="listWebLogs" resultType="com.pytap.project.model.WebLogDO">
+    <select id="listWebLogs" resultType="com.pytap.project.dto.WebLogDTO">
         SELECT id, description, username, method, spend_time, ip, result, create_time FROM `web_log`
     </select>
     <delete id="deleteAllWebLogs">

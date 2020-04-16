@@ -40,4 +40,5 @@ public class RedisUtil {
 	public Long increment(String key, long expire) {
 		return redisTemplate.opsForValue().increment(key, expire);
 	}
+
 }

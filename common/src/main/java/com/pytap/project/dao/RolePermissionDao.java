@@ -52,4 +52,5 @@ public interface RolePermissionDao {
 	 * */
 	List<RolePermission> listAllRolePermissions();
 
+
 }

@@ -55,4 +55,11 @@ public interface AdminUserService {
 	 * @return List<AuthDTO>
 	 * */
 	List<AuthDTO> listUserAllRolePermissions(Long id);
+
+	/**
+	 * 根据角色id获取权限
+	 * @param id 角色id
+	 * @return List<Permission>
+	 * */
+	List<Permission> listRolePermissions(Long id);
 }

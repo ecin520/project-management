@@ -54,6 +54,8 @@ public interface UserService {
 
     /**
      * 获取所有用户
+     * @param pageNum 第几页
+     * @param pageSize 每页条目数量
      * @return List<User>
      * */
     List<User> listAllUsers(Integer pageNum, Integer pageSize);

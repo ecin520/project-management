@@ -56,7 +56,7 @@ public class PermissionServiceImpl implements PermissionService {
 	}
 
 	@Override
-	@Cacheable(key = "'list-all-permission'")
+	@Cacheable(key = "'list-all-permission' + #pageNum + '-' + #pageSize")
 	public List<Permission> listAllPermissions(Integer pageNum, Integer pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
 		return permissionDao.listAllPermissions();

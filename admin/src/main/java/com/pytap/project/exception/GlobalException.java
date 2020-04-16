@@ -28,7 +28,6 @@ public class GlobalException {
 	 * */
 	@ExceptionHandler(value = Exception.class)
 	public void exception(Exception e) {
-		e.printStackTrace();
 		logger.info("Error: {}", e.getMessage());
 	}
 
@@ -37,8 +36,7 @@ public class GlobalException {
 	 * */
 	@ExceptionHandler(value = NullPointerException.class)
 	public JSONObject nullPointerException(NullPointerException e) {
-		e.printStackTrace();
-		return JsonUtil.backInfo(500, "空指针异常");
+		return JsonUtil.backInfo(500, "空指针异常" + e.getMessage());
 	}
 
 	/**

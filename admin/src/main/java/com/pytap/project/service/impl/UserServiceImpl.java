@@ -3,6 +3,8 @@ package com.pytap.project.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.pytap.project.dao.UserDao;
 import com.pytap.project.entity.User;
+import com.pytap.project.entity.UserRole;
+import com.pytap.project.service.UserRoleService;
 import com.pytap.project.service.UserService;
 import com.pytap.project.utils.ImageUtil;
 import org.springframework.cache.annotation.CacheConfig;
@@ -29,6 +31,9 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
 
     @Resource
+    private UserRoleService userRoleService;
+
+    @Resource
     private UserDao userDao;
 
     @Override
@@ -49,7 +54,12 @@ public class UserServiceImpl implements UserService {
         }
         String encryption = passwordEncoder.encode(user.getPassword());
         user.setPassword(encryption);
-        return userDao.insertUser(user);
+        int result = userDao.insertUser(user);
+        UserRole userRole = new UserRole();
+        userRole.setUserId(user.getId());
+        userRole.setRoleId(1001L);
+        userRoleService.insertUserRole(userRole);
+        return result;
     }
 
     @Override
@@ -83,7 +93,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Cacheable(key = "'all-user'")
+    @Cacheable(key = "'all-user' + #pageNum + '-' + #pageSize")
     public List<User> listAllUsers(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         return userDao.listAllUsers();

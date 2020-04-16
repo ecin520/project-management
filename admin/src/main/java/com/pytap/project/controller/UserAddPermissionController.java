@@ -1,7 +1,7 @@
 package com.pytap.project.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.pytap.project.annotation.WebLog;
+import com.pytap.project.annotation.Log;
 import com.pytap.project.entity.UserAddPermission;
 import com.pytap.project.service.UserAddPermissionService;
 import com.pytap.project.utils.JsonUtil;
@@ -25,9 +25,9 @@ public class UserAddPermissionController {
 	@Resource
 	private UserAddPermissionService userAddPermissionService;
 
-	@WebLog(value = "插入用户附加权限关系")
+	@Log(value = "插入用户附加权限关系")
 	@RequestMapping(value = "insertUserAddPermission", method = RequestMethod.POST)
-	public JSONObject insertUserAddPermission(UserAddPermission userAddPermission) {
+	public JSONObject insertUserAddPermission(@RequestBody UserAddPermission userAddPermission) {
 		int result = userAddPermissionService.insertUserAddPermission(userAddPermission);
 		if (result == 1) {
 			return JsonUtil.success();
@@ -35,7 +35,7 @@ public class UserAddPermissionController {
 		return JsonUtil.fail();
 	}
 
-	@WebLog(value = "删除用户附加权限关系")
+	@Log(value = "删除用户附加权限关系")
 	@RequestMapping(value = "deleteByUserAddPermission", method = RequestMethod.POST)
 	public JSONObject deleteByUserAddPermission(@RequestBody UserAddPermission userAddPermission) {
 		int result = userAddPermissionService.deleteByUserAddPermission(userAddPermission);
@@ -45,9 +45,9 @@ public class UserAddPermissionController {
 		return JsonUtil.fail();
 	}
 
-	@WebLog(value = "更新用户附加权限关系")
+	@Log(value = "更新用户附加权限关系")
 	@RequestMapping(value = "updateByUserAddPermissionId", method = RequestMethod.POST)
-	public JSONObject updateByUserAddPermissionId(UserAddPermission userAddPermission) {
+	public JSONObject updateByUserAddPermissionId(@RequestBody UserAddPermission userAddPermission) {
 		int result = userAddPermissionService.updateByUserAddPermissionId(userAddPermission);
 		if (result == 1) {
 			return JsonUtil.success();
@@ -55,13 +55,13 @@ public class UserAddPermissionController {
 		return JsonUtil.fail();
 	}
 
-	@WebLog(value = "获取用户附加权限关系")
+	@Log(value = "获取用户附加权限关系")
 	@RequestMapping(value = "getByUserAddPermissionId", method = RequestMethod.POST)
 	public JSONObject getByUserAddPermissionId(Long id) {
 		return JsonUtil.backObject(200, userAddPermissionService.getByUserAddPermissionId(id));
 	}
 
-	@WebLog(value = "插入所有用户附加权限关系")
+	@Log(value = "插入所有用户附加权限关系")
 	@RequestMapping(value = "listAllUserAddPermissions", method = RequestMethod.GET)
 	public JSONObject listAllUserAddPermissions() {
 		return JsonUtil.backObject(200, userAddPermissionService.listAllUserAddPermissions());
