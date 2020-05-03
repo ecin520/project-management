@@ -35,10 +35,20 @@ public class UserRoleController {
 		return JsonUtil.fail();
 	}
 
-	@Log(value = "删除用户角色关系")
-	@RequestMapping(value = "deleteByUserRole", method = RequestMethod.POST)
-	public JSONObject deleteByUserRole(@RequestBody UserRole userRole) {
-		int result = userRoleService.deleteByUserRole(userRole);
+	@Log(value = "主键删除用户角色关系")
+	@RequestMapping(value = "deleteByUserRoleId", method = RequestMethod.GET)
+	public JSONObject deleteByUserRole(Long id) {
+		int result = userRoleService.deleteByUserRoleId(id);
+		if (result == 1) {
+			return JsonUtil.success();
+		}
+		return JsonUtil.fail();
+	}
+
+	@Log(value = "用户和角色id删除用户角色关系")
+	@RequestMapping(value = "deleteByUserAndRoleId", method = RequestMethod.GET)
+	public JSONObject deleteByUserRole(Long userId, Long roleId) {
+		int result = userRoleService.deleteByUserAndRoleId(userId, roleId);
 		if (result == 1) {
 			return JsonUtil.success();
 		}
@@ -56,7 +66,7 @@ public class UserRoleController {
 	}
 
 	@Log(value = "获取用户角色关系")
-	@RequestMapping(value = "getByUserRoleId", method = RequestMethod.POST)
+	@RequestMapping(value = "getByUserRoleId", method = RequestMethod.GET)
 	public JSONObject getByUserRoleId(Long id) {
 		return JsonUtil.backObject(200, userRoleService.getByUserRoleId(id));
 	}

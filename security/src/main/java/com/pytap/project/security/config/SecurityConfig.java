@@ -28,7 +28,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .sessionCreationPolicy(SessionCreationPolicy.NEVER)
             .and()
             .authorizeRequests()
-            .antMatchers("/common/**").permitAll()
             .anyRequest().permitAll();
 
         // 禁用缓存

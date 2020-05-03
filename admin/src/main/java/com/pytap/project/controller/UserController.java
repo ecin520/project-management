@@ -44,7 +44,7 @@ public class UserController {
 	}
 
 	@Log(value = "删除用户")
-	@RequestMapping(value = "deleteByUserId", method = RequestMethod.POST)
+	@RequestMapping(value = "deleteByUserId", method = RequestMethod.GET)
 	public JSONObject deleteByUserId(Long id) {
 		int result = userService.deleteByUserId(id);
 		if (result == 1) {
@@ -65,13 +65,13 @@ public class UserController {
 	}
 
 	@Log(value = "主键获取用户")
-	@RequestMapping(value = "getByUserId", method = RequestMethod.POST)
+	@RequestMapping(value = "getByUserId", method = RequestMethod.GET)
 	public JSONObject getByUserId(Long id) {
 		return JsonUtil.backObject(200, userService.getByUserId(id));
 	}
 
 	@Log(value = "用户名获取用户")
-	@RequestMapping(value = "getByUsername", method = RequestMethod.POST)
+	@RequestMapping(value = "getByUsername", method = RequestMethod.GET)
 	public JSONObject getByUsername(String username) {
 		return JsonUtil.backObject(200, userService.getByUsername(username));
 	}

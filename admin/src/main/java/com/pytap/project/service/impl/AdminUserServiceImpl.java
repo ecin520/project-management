@@ -1,7 +1,7 @@
 package com.pytap.project.service.impl;
 
 import com.pytap.project.dao.AdminUserDao;
-import com.pytap.project.entity.AddPermission;
+import com.pytap.project.entity.AdditionalPermission;
 import com.pytap.project.entity.Permission;
 import com.pytap.project.entity.Role;
 import com.pytap.project.model.dto.AuthDTO;
@@ -68,9 +68,9 @@ public class AdminUserServiceImpl implements AdminUserService {
     }
 
     @Override
-    @Cacheable(key = "'user-add-permission' + #id")
-    public List<AddPermission> listUserAddPermissions(Long id) {
-        return adminUserDao.listUserAddPermissions(id);
+    @Cacheable(key = "'user-additional-permission' + #id")
+    public List<AdditionalPermission> listUserAdditionalPermissions(Long id) {
+        return adminUserDao.listUserAdditionalPermissions(id);
     }
 
     @Override
@@ -83,7 +83,7 @@ public class AdminUserServiceImpl implements AdminUserService {
     @Cacheable(key = "'user-all-permission' + #id")
     public List<AuthDTO> listUserAllPermissions(Long id) {
         List<Permission> permissions = listUserPermissions(id);
-        List<AddPermission> addPermissions = listUserAddPermissions(id);
+        List<AdditionalPermission> addPermissions = listUserAdditionalPermissions(id);
 
         List<AuthDTO> dtoList = new ArrayList<>(16);
 
@@ -93,7 +93,7 @@ public class AdminUserServiceImpl implements AdminUserService {
             dtoList.add(dto);
         }
 
-        for (AddPermission addPermission : addPermissions) {
+        for (AdditionalPermission addPermission : addPermissions) {
             AuthDTO dto = new AuthDTO();
             BeanUtils.copyProperties(addPermission, dto);
             dtoList.add(dto);

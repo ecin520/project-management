@@ -1,6 +1,6 @@
 package com.pytap.project.dao;
 
-import com.pytap.project.entity.AddPermission;
+import com.pytap.project.entity.AdditionalPermission;
 import com.pytap.project.entity.Permission;
 import com.pytap.project.entity.Role;
 import org.apache.ibatis.annotations.Mapper;
@@ -24,9 +24,9 @@ public interface AdminUserDao {
     /**
      * 根据用户id获取额外权限
      * @param id 用户id
-     * @return List<Permission>
+     * @return List<AdditionalPermission>
      * */
-    List<AddPermission> listUserAddPermissions(Long id);
+    List<AdditionalPermission> listUserAdditionalPermissions(Long id);
 
     /**
      * 根据用户id获取角色

@@ -36,9 +36,19 @@ public class RolePermissionController {
 	}
 
 	@Log(value = "删除角色权限关系")
-	@RequestMapping(value = "deleteByRolePermission", method = RequestMethod.POST)
-	public JSONObject deleteByRolePermission(@RequestBody RolePermission rolePermission) {
-		int result = rolePermissionService.deleteByRolePermission(rolePermission);
+	@RequestMapping(value = "deleteByRolePermissionId", method = RequestMethod.GET)
+	public JSONObject deleteByRolePermissionId(Long id) {
+		int result = rolePermissionService.deleteByRolePermissionId(id);
+		if (result == 1) {
+			return JsonUtil.success();
+		}
+		return JsonUtil.fail();
+	}
+
+	@Log(value = "删除角色权限关系")
+	@RequestMapping(value = "deleteByRoleAndPermissionId", method = RequestMethod.GET)
+	public JSONObject deleteByRoleAndPermissionId(Long roleId, Long permissionId) {
+		int result = rolePermissionService.deleteByRoleAndPermissionId(roleId, permissionId);
 		if (result == 1) {
 			return JsonUtil.success();
 		}
@@ -56,7 +66,7 @@ public class RolePermissionController {
 	}
 
 	@Log(value = "获取角色权限关系")
-	@RequestMapping(value = "getByRolePermissionId", method = RequestMethod.POST)
+	@RequestMapping(value = "getByRolePermissionId", method = RequestMethod.GET)
 	public JSONObject getByRolePermissionId(Long id) {
 		return JsonUtil.backObject(200, rolePermissionService.getByRolePermissionId(id));
 	}

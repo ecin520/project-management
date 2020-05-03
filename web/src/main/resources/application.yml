@@ -1,0 +1,52 @@
+server:
+  port: 8082
+
+
+mybatis:
+  mapper-locations:
+    - classpath*:mapper/*.xml
+    - classpath*:com/**/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+spring:
+  datasource:
+    name: DruidDataSource
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      url: jdbc:mysql://localhost:3306/management?useSSL=FALSE&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      username: root
+      password: qwer1234
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      initial-size: 5 #连接池初始化大小
+      min-idle: 10 #最小空闲连接数
+      max-active: 20 #最大连接数
+      web-stat-filter:
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*" #不统计这些请求数据
+      stat-view-servlet: #访问监控网页的登录用户名和密码
+        login-username: user
+        login-password: qwer1234
+  aop:
+    auto: true
+  redis:
+    host: localhost
+    port: 6379
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 30
+        min-idle: 10
+  session:
+    store-type: redis #把session存入redis
+    timeout: 60s
+
+logging:
+  level:
+    com.pytap.project.dao: debug
+
+jwt:
+  tokenHeader: Authorization # JWT存储的请求头部
+  secret: spring-security # JWT加解密使用的密钥
+  expiration: 604800 # JWT的超期限时间(60*60*24)
+  tokenHead: Bearer  # JWT负载中拿到开头

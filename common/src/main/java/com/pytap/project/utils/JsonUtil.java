@@ -35,7 +35,7 @@ public class JsonUtil {
     public static JSONObject loginSuccess(Integer code, String info, Object user) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code", code);
-        jsonObject.put("message", info);
+        jsonObject.put("token", info);
         jsonObject.put("user", user);
         return jsonObject;
     }

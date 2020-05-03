@@ -44,7 +44,7 @@
             AND u.`id` = #{id}
 	 </select>
 
-    <select id="listUserAddPermissions" resultType="com.pytap.project.entity.AddPermission">
+    <select id="listUserAdditionalPermissions" resultType="com.pytap.project.entity.AdditionalPermission">
         SELECT
             ap.`id`,
             ap.`name`,

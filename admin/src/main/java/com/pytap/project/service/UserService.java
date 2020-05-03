@@ -1,7 +1,6 @@
 package com.pytap.project.service;
 
 import com.pytap.project.entity.User;
-import com.pytap.project.model.dto.UserDTO;
 
 import java.util.List;
 

@@ -1,10 +1,11 @@
 package com.pytap.project.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.pytap.project.dao.UserDao;
+import com.pytap.project.dao.UserMapper;
+import com.pytap.project.dao.UserRoleMapper;
 import com.pytap.project.entity.User;
+import com.pytap.project.entity.UserExample;
 import com.pytap.project.entity.UserRole;
-import com.pytap.project.service.UserRoleService;
 import com.pytap.project.service.UserService;
 import com.pytap.project.utils.ImageUtil;
 import org.springframework.cache.annotation.CacheConfig;
@@ -31,71 +32,89 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
 
     @Resource
-    private UserRoleService userRoleService;
+    private UserRoleMapper userRoleMapper;
 
     @Resource
-    private UserDao userDao;
+    private UserMapper userMapper;
 
     @Override
     @Cacheable
     public Integer countUser() {
-        return userDao.countUser();
+        return userMapper.countByExample(null);
     }
 
     @Override
     @Transactional(rollbackFor = {RuntimeException.class, Error.class})
     @CacheEvict(allEntries = true)
     public Integer insertUser(User user) {
+
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        criteria.andUsernameEqualTo(user.getUsername());
+
+        if (1 != userMapper.selectByExample(userExample).size()) {
+            return null;
+        }
+
         user.setCreateTime(new Date());
         user.setStatus(1);
         user.setAvatar(ImageUtil.IMAGE_COLLECTION[new Random().nextInt(ImageUtil.IMAGE_COLLECTION.length)]);
-        if (null != userDao.getByUsername(user.getUsername())) {
-            return null;
-        }
+
+
         String encryption = passwordEncoder.encode(user.getPassword());
         user.setPassword(encryption);
-        int result = userDao.insertUser(user);
+
+        int result = userMapper.insert(user);
+
         UserRole userRole = new UserRole();
         userRole.setUserId(user.getId());
         userRole.setRoleId(1001L);
-        userRoleService.insertUserRole(userRole);
+
+        userRoleMapper.insert(userRole);
         return result;
     }
 
     @Override
     @CacheEvict(allEntries = true)
     public Integer deleteByUserId(Long id) {
-        return userDao.deleteByUserId(id);
+        return userMapper.deleteByPrimaryKey(id);
     }
 
     @Override
     @Transactional(rollbackFor = {RuntimeException.class, Error.class})
     @CacheEvict(allEntries = true)
     public Integer updateByUserId(User user) {
-        User example = userDao.getByUserId(user.getId());
-        if (!example.getPassword().equals(user.getPassword())) {
+        User userInfo = userMapper.selectByPrimaryKey(user.getId());
+        if (!userInfo.getPassword().equals(user.getPassword())) {
             String encryption = passwordEncoder.encode(user.getPassword());
             user.setPassword(encryption);
         }
-        return userDao.updateByUserId(user);
+        return userMapper.updateByPrimaryKey(user);
     }
 
     @Override
     @Cacheable(key = "'by-id' + #id")
     public User getByUserId(Long id) {
-        return userDao.getByUserId(id);
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        criteria.andIdEqualTo(id);
+        return userMapper.selectByExample(userExample).get(0);
     }
 
     @Override
     @Cacheable(key = "'by-username' + #username")
     public User getByUsername(String username) {
-        return userDao.getByUsername(username);
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        criteria.andUsernameEqualTo(username);
+        return userMapper.selectByExample(userExample).get(0);
     }
 
     @Override
     @Cacheable(key = "'all-user' + #pageNum + '-' + #pageSize")
     public List<User> listAllUsers(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        return userDao.listAllUsers();
+        UserExample userExample = new UserExample();
+        return userMapper.selectByExample(userExample);
     }
 }

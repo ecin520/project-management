@@ -1,54 +1,63 @@
 package com.pytap.project.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
 
-/**
- * 角色对象
- * @author Ecin520
- * @date 2020/3/25 2:05
- */
-@Getter @Setter
 public class Role implements Serializable {
-
-    private static final long serialVersionUID = 2364765432518210174L;
-
     private Long id;
+
     private String name;
+
     private String description;
+
     private Date createTime;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Role roleDO = (Role) o;
-        return Objects.equals(id, roleDO.id) &&
-                Objects.equals(name, roleDO.name) &&
-                Objects.equals(description, roleDO.description) &&
-                Objects.equals(createTime, roleDO.createTime);
+    private static final long serialVersionUID = 1L;
+
+    public Long getId() {
+        return id;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, description, createTime);
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     @Override
     public String toString() {
-        return "RoleDO{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", createTime=" + createTime +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", name=").append(name);
+        sb.append(", description=").append(description);
+        sb.append(", createTime=").append(createTime);
+        sb.append(", serialVersionUID=").append(serialVersionUID);
+        sb.append("]");
+        return sb.toString();
     }
 }

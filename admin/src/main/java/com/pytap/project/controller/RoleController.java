@@ -39,7 +39,7 @@ public class RoleController {
 	}
 
 	@Log(value = "删除角色")
-	@RequestMapping(value = "deleteByRoleId", method = RequestMethod.POST)
+	@RequestMapping(value = "deleteByRoleId", method = RequestMethod.GET)
 	public JSONObject deleteByRoleId(Long id){
 		int result = roleService.deleteByRoleId(id);
 		if (result == 1) {
@@ -60,7 +60,7 @@ public class RoleController {
 
 	@Log(value = "获取角色")
 	@RequestMapping(value = "getRole", method = RequestMethod.POST)
-	public JSONObject getRole(Role role){
+	public JSONObject getRole(@RequestBody Role role){
 		return JsonUtil.backObject(200, roleService.getRole(role));
 	}
 

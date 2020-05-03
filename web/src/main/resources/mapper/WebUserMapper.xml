@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pytap.project.web.dao.WebUserDao">
+
+    <select id="listUserPermissions" resultType="com.pytap.project.entity.Permission">
+        SELECT
+            p.`id`,
+            p.`name`,
+            p.`description`,
+            p.`create_time`
+        FROM
+            `permission` p,
+            `role_permission` rp,
+            `role` r
+        WHERE
+            p.`id` = rp.`permission_id`
+            AND r.`id` = rp.`role_id`
+            AND r.`id` IN (
+        SELECT
+            r.`id`
+        FROM
+            `role` r,
+            `user` u,
+            `user_role` ur
+        WHERE
+            r.`id` = ur.`role_id`
+            AND u.`id` = ur.`user_id`
+            AND u.`id` = #{id})
+    </select>
+
+    <select id="listUserRoles" resultType="com.pytap.project.entity.Role">
+        SELECT
+            r.`id`,
+            r.`name`,
+            r.`description`,
+            r.`create_time`
+        FROM
+            `role` r,
+            `user` u,
+            `user_role` ur
+        WHERE
+            r.id = ur.`role_id`
+            AND u.id = ur.`user_id`
+            AND u.`id` = #{id}
+	 </select>
+
+    <select id="listUserAdditionalPermissions" resultType="com.pytap.project.entity.AdditionalPermission">
+        SELECT
+            ap.`id`,
+            ap.`name`,
+            ap.`description`,
+            ap.`create_time`
+        FROM
+            `user` u,
+            `additional_permission` ap,
+            `user_additional_permission` up
+        WHERE
+            ap.`id` = up.`additional_permission_id`
+            AND u.`id` = up.`user_id`
+            AND u.`id` = #{id};
+    </select>
+    <select id="listRolePermissions" resultType="com.pytap.project.entity.Permission">
+        SELECT
+            id,
+            name,
+            description,
+            create_time
+        FROM
+            `permission`
+        WHERE
+            `id` IN ( SELECT permission_id FROM `role_permission` WHERE `role_id` = #{id} )
+    </select>
+</mapper>

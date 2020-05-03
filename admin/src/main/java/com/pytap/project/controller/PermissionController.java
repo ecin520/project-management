@@ -39,7 +39,7 @@ public class PermissionController {
 	}
 
 	@Log(value = "删除权限")
-	@RequestMapping(value = "deleteByPermissionId", method = RequestMethod.POST)
+	@RequestMapping(value = "deleteByPermissionId", method = RequestMethod.GET)
 	public JSONObject deleteByPermissionId(Long id) {
 		int result = permissionService.deleteByPermissionId(id);
 		if (result == 1) {
@@ -60,7 +60,7 @@ public class PermissionController {
 
 	@Log(value = "获取权限")
 	@RequestMapping(value = "getPermission", method = RequestMethod.POST)
-	public JSONObject getPermission(Permission permission) {
+	public JSONObject getPermission(@RequestBody Permission permission) {
 		return JsonUtil.backObject(200, permissionService.getPermission(permission));
 	}
 

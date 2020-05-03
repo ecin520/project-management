@@ -1,7 +1,8 @@
 package com.pytap.project.service.impl;
 
-import com.pytap.project.dao.RolePermissionDao;
+import com.pytap.project.dao.RolePermissionMapper;
 import com.pytap.project.entity.RolePermission;
+import com.pytap.project.entity.RolePermissionExample;
 import com.pytap.project.service.RolePermissionService;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
@@ -20,34 +21,45 @@ import java.util.List;
 public class RolePermissionImpl implements RolePermissionService {
 
 	@Resource
-	private RolePermissionDao rolePermissionDao;
+	private RolePermissionMapper rolePermissionMapper;
 
 	@Override
 	@CacheEvict(allEntries = true)
 	public Integer insertRolePermission(RolePermission rolePermission) {
 		rolePermission.setCreateTime(new Date());
-		return rolePermissionDao.insertRolePermission(rolePermission);
+		return rolePermissionMapper.insert(rolePermission);
 	}
 
 	@Override
 	@CacheEvict(allEntries = true)
-	public Integer deleteByRolePermission(RolePermission rolePermission) {
-		return rolePermissionDao.deleteByRolePermission(rolePermission);
+	public Integer deleteByRoleAndPermissionId(Long roleId, Long permissionId) {
+		RolePermissionExample rolePermissionExample = new RolePermissionExample();
+		RolePermissionExample.Criteria criteria = rolePermissionExample.createCriteria();
+		criteria.andRoleIdEqualTo(roleId);
+		criteria.andPermissionIdEqualTo(permissionId);
+		return rolePermissionMapper.deleteByExample(rolePermissionExample);
 	}
+
+	@Override
+	@CacheEvict(allEntries = true)
+	public Integer deleteByRolePermissionId(Long id) {
+		return rolePermissionMapper.deleteByPrimaryKey(id);
+	}
+
 
 	@Override
 	@CacheEvict(allEntries = true)
 	public Integer updateByRolePermissionId(RolePermission rolePermission) {
-		return rolePermissionDao.updateByRolePermissionId(rolePermission);
+		return rolePermissionMapper.updateByPrimaryKey(rolePermission);
 	}
 
 	@Override
 	public RolePermission getByRolePermissionId(Long id) {
-		return rolePermissionDao.getByRolePermissionId(id);
+		return rolePermissionMapper.selectByPrimaryKey(id);
 	}
 
 	@Override
 	public List<RolePermission> listAllRolePermissions() {
-		return rolePermissionDao.listAllRolePermissions();
+		return rolePermissionMapper.selectByExample(null);
 	}
 }

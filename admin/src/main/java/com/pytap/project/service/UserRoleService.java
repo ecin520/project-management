@@ -19,10 +19,18 @@ public interface UserRoleService {
 
 	/**
 	 * 删除用户角色关系
-	 * @param userRole 用户角色关系实体
+	 * @param userId 用户id
+	 * @param roleId 角色id
 	 * @return Integer
 	 * */
-	Integer deleteByUserRole(UserRole userRole);
+	Integer deleteByUserAndRoleId(Long userId, Long roleId);
+
+	/**
+	 * 删除用户角色关系
+	 * @param id 用户角色关系主键
+	 * @return Integer
+	 * */
+	Integer deleteByUserRoleId(Long id);
 
 	/**
 	 * 更新用户角色关系

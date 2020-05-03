@@ -24,37 +24,37 @@ public class AdminUserController {
     private AdminUserService adminUserService;
 
     @Log(value = "根据id获取用户所有权限，不包括附加权限")
-    @RequestMapping(value = "listUserPermissions", method = RequestMethod.POST)
+    @RequestMapping(value = "listUserPermissions", method = RequestMethod.GET)
     public JSONObject listUserPermissions(Long id) {
         return JsonUtil.backObject(200, adminUserService.listUserPermissions(id));
     }
 
     @Log(value = "根据id获取用户所有附加权限")
-    @RequestMapping(value = "listUserAddPermissions", method = RequestMethod.POST)
-    public JSONObject listUserAddPermissions(Long id) {
-        return JsonUtil.backObject(200, adminUserService.listUserAddPermissions(id));
+    @RequestMapping(value = "listUserAdditionalPermissions", method = RequestMethod.GET)
+    public JSONObject listUserAdditionalPermissions(Long id) {
+        return JsonUtil.backObject(200, adminUserService.listUserAdditionalPermissions(id));
     }
 
     @Log(value = "根据id获取用户所有权限，包括附加权限")
-    @RequestMapping(value = "listAllPermissions", method = RequestMethod.POST)
+    @RequestMapping(value = "listAllPermissions", method = RequestMethod.GET)
     public JSONObject userList(Long id) {
         return JsonUtil.backObject(200, adminUserService.listUserAllPermissions(id));
     }
 
     @Log(value = "获取用户所有角色")
-    @RequestMapping(value = "listAllRoles", method = RequestMethod.POST)
+    @RequestMapping(value = "listAllRoles", method = RequestMethod.GET)
     public JSONObject listAllRoles(Long id) {
         return JsonUtil.backObject(200, adminUserService.listUserRoles(id));
     }
 
     @Log(value = "根据id获取用户所有角色权限，包括附加权限")
-    @RequestMapping(value = "listUserAllRolesPermissions", method = RequestMethod.POST)
+    @RequestMapping(value = "listUserAllRolesPermissions", method = RequestMethod.GET)
     public JSONObject listAllRolesPermissions(Long id) {
         return JsonUtil.backObject(200, adminUserService.listUserAllRolePermissions(id));
     }
 
     @Log(value = "角色id获取角色权限关系")
-    @RequestMapping(value = "listRolePermissions", method = RequestMethod.POST)
+    @RequestMapping(value = "listRolePermissions", method = RequestMethod.GET)
     public JSONObject listRolePermissions(Long id) {
         return JsonUtil.backObject(200, adminUserService.listRolePermissions(id));
     }

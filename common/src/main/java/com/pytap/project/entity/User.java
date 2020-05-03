@@ -1,76 +1,129 @@
 package com.pytap.project.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
 
-/**
- * 用户实体
- * @author Ecin520
- * @date 2020/3/26 21:42
- */
-@Getter @Setter
 public class User implements Serializable {
-
-    private static final long serialVersionUID = 8712398133699802569L;
-
     private Long id;
+
     private String username;
+
     private String password;
+
     private String avatar;
+
     private String email;
+
     private String nickname;
+
     private String note;
+
     private Date createTime;
+
     private Date loginTime;
+
     private Integer status;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        User user = (User) o;
-        return Objects.equals(id, user.id) &&
-                Objects.equals(username, user.username) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(avatar, user.avatar) &&
-                Objects.equals(email, user.email) &&
-                Objects.equals(nickname, user.nickname) &&
-                Objects.equals(note, user.note) &&
-                Objects.equals(createTime, user.createTime) &&
-                Objects.equals(loginTime, user.loginTime) &&
-                Objects.equals(status, user.status);
+    private static final long serialVersionUID = 1L;
+
+    public Long getId() {
+        return id;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, username, password, avatar, email, nickname, note, createTime, loginTime, status);
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getLoginTime() {
+        return loginTime;
+    }
+
+    public void setLoginTime(Date loginTime) {
+        this.loginTime = loginTime;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", avatar='" + avatar + '\'' +
-                ", email='" + email + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", note='" + note + '\'' +
-                ", createTime=" + createTime +
-                ", loginTime=" + loginTime +
-                ", status=" + status +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", username=").append(username);
+        sb.append(", password=").append(password);
+        sb.append(", avatar=").append(avatar);
+        sb.append(", email=").append(email);
+        sb.append(", nickname=").append(nickname);
+        sb.append(", note=").append(note);
+        sb.append(", createTime=").append(createTime);
+        sb.append(", loginTime=").append(loginTime);
+        sb.append(", status=").append(status);
+        sb.append(", serialVersionUID=").append(serialVersionUID);
+        sb.append("]");
+        return sb.toString();
     }
-
-
 }

@@ -1,33 +1,63 @@
 package com.pytap.project.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * 角色权限
- * @author Ecin520
- * @date 2020/3/30 22:53
- */
-@Getter @Setter
 public class RolePermission implements Serializable {
+    private Long id;
 
-	private static final long serialVersionUID = -8182491396162941319L;
+    private Long roleId;
 
-	private Long id;
-	private Long roleId;
-	private Long permissionId;
-	private Date createTime;
+    private Long permissionId;
 
-	@Override
-	public String toString() {
-		return "RolePermission{" +
-				"id=" + id +
-				", roleId=" + roleId +
-				", permissionId=" + permissionId +
-				", createTime=" + createTime +
-				'}';
-	}
+    private Date createTime;
+
+    private static final long serialVersionUID = 1L;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
+    }
+
+    public Long getPermissionId() {
+        return permissionId;
+    }
+
+    public void setPermissionId(Long permissionId) {
+        this.permissionId = permissionId;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", roleId=").append(roleId);
+        sb.append(", permissionId=").append(permissionId);
+        sb.append(", createTime=").append(createTime);
+        sb.append(", serialVersionUID=").append(serialVersionUID);
+        sb.append("]");
+        return sb.toString();
+    }
 }

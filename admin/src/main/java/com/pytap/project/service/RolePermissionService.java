@@ -19,10 +19,18 @@ public interface RolePermissionService {
 
 	/**
 	 * 删除角色权限关系
-	 * @param rolePermission 角色权限关系
+	 * @param roleId 角色id
+	 * @param permissionId 权限id
 	 * @return Integer
 	 * */
-	Integer deleteByRolePermission(RolePermission rolePermission);
+	Integer deleteByRoleAndPermissionId(Long roleId, Long permissionId);
+
+	/**
+	 * 删除角色权限关系
+	 * @param id 主键
+	 * @return Integer
+	 * */
+	Integer deleteByRolePermissionId(Long id);
 
 	/**
 	 * 更新角色权限关系

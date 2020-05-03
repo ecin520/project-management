@@ -1,6 +1,6 @@
 package com.pytap.project.service;
 
-import com.pytap.project.entity.AddPermission;
+import com.pytap.project.entity.AdditionalPermission;
 import com.pytap.project.entity.Permission;
 import com.pytap.project.entity.Role;
 import com.pytap.project.model.dto.AuthDTO;
@@ -31,9 +31,9 @@ public interface AdminUserService {
 	/**
 	 * 根据用户id获取额外权限
 	 * @param id 用户id
-	 * @return List<PermissionDO>
+	 * @return List<AdditionalPermission>
 	 * */
-	List<AddPermission> listUserAddPermissions(Long id);
+	List<AdditionalPermission> listUserAdditionalPermissions(Long id);
 
 	/**
 	 * 根据用户id获取所有权限

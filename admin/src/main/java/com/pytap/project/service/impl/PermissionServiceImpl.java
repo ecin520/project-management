@@ -1,8 +1,9 @@
 package com.pytap.project.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.pytap.project.dao.PermissionDao;
+import com.pytap.project.dao.PermissionMapper;
 import com.pytap.project.entity.Permission;
+import com.pytap.project.entity.PermissionExample;
 import com.pytap.project.service.PermissionService;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
@@ -22,44 +23,52 @@ import java.util.List;
 public class PermissionServiceImpl implements PermissionService {
 
 	@Resource
-	private PermissionDao permissionDao;
+	private PermissionMapper permissionMapper;
 
 	@Override
 	@Cacheable(key = "'count-permission'")
 	public Integer countPermission() {
-		return permissionDao.countPermission();
+		return permissionMapper.countByExample(null);
 	}
 
 	@Override
 	@CacheEvict(allEntries = true)
 	public Integer insertPermission(Permission permission) {
 		permission.setCreateTime(new Date());
-		return permissionDao.insertPermission(permission);
+		return permissionMapper.insert(permission);
 	}
 
 	@Override
 	@CacheEvict(allEntries = true)
 	public Integer deleteByPermissionId(Long id) {
-		return permissionDao.deleteByPermissionId(id);
+		return permissionMapper.deleteByPrimaryKey(id);
 	}
 
 	@Override
 	@CacheEvict(allEntries = true)
 	public Integer updateByPermissionId(Permission permission) {
-		return permissionDao.updateByPermissionId(permission);
+		return permissionMapper.updateByPrimaryKey(permission);
 	}
 
 	@Override
 	@Cacheable(key = "'get-permission' + queryParam.toString()")
 	public Permission getPermission(Permission queryParam) {
-		return permissionDao.getPermission(queryParam);
+		PermissionExample permissionExample = new PermissionExample();
+		PermissionExample.Criteria criteria = permissionExample.createCriteria();
+		if (null != queryParam.getId()) {
+			return permissionMapper.selectByPrimaryKey(queryParam.getId());
+		} else if (null != queryParam.getName()){
+			criteria.andNameEqualTo(queryParam.getName());
+			return permissionMapper.selectByExample(permissionExample).get(0);
+		}
+		return null;
 	}
 
 	@Override
 	@Cacheable(key = "'list-all-permission' + #pageNum + '-' + #pageSize")
 	public List<Permission> listAllPermissions(Integer pageNum, Integer pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
-		return permissionDao.listAllPermissions();
+		return permissionMapper.selectByExample(null);
 	}
 
 }

@@ -18,9 +18,9 @@ public class UserDetailsImpl implements UserDetails {
 
     private static final long serialVersionUID = 9061159403035701438L;
 
-    private User user;
+    private final User user;
 
-    private List<AuthDTO> authList;
+    private final List<AuthDTO> authList;
 
     public UserDetailsImpl(User user, List<AuthDTO> authList) {
         this.user = user;

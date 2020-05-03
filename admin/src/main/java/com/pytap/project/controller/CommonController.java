@@ -11,10 +11,8 @@ import com.pytap.project.service.UserService;
 import com.pytap.project.utils.CaptchaUtil;
 import com.pytap.project.utils.JsonUtil;
 import com.pytap.project.utils.RedisUtil;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,7 +44,7 @@ public class CommonController {
 	private static final String SESSION_IMAGE_KEY = "ImageCode";
 
 	@Log(value = "登录")
-	@RequestMapping(value = "login", method = RequestMethod.POST)
+	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public JSONObject login(HttpServletRequest request, String username, String password, String code) {
 
 		String redisCode = (String) redisUtil.get(SESSION_IMAGE_KEY + request.getSession().getId());
@@ -87,12 +85,5 @@ public class CommonController {
 		ImageIO.write(captchaImage.getBufferedImage(), "JPEG", response.getOutputStream());
 	}
 
-	@Log
-	@RequestMapping(value = "auth-project", method = RequestMethod.POST)
-	@PreAuthorize("hasAuthority('AP_' + #id)")
-	@ApiOperation(value = "测试权限")
-	public JSONObject auth(Long id) {
-		return JsonUtil.success();
-	}
 
 }

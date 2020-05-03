@@ -1,7 +1,6 @@
 package com.pytap.project.service;
 
 import com.pytap.project.dto.ErrorLogDTO;
-import com.pytap.project.dto.WebLogDTO;
 
 import java.util.List;
 
