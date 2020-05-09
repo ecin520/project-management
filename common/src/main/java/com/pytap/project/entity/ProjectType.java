@@ -3,14 +3,10 @@ package com.pytap.project.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Annex implements Serializable {
+public class ProjectType implements Serializable {
     private Long id;
 
     private String name;
-
-    private String url;
-
-    private Long taskId;
 
     private Date createTime;
 
@@ -32,22 +28,6 @@ public class Annex implements Serializable {
         this.name = name;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public Long getTaskId() {
-        return taskId;
-    }
-
-    public void setTaskId(Long taskId) {
-        this.taskId = taskId;
-    }
-
     public Date getCreateTime() {
         return createTime;
     }
@@ -64,8 +44,6 @@ public class Annex implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", name=").append(name);
-        sb.append(", url=").append(url);
-        sb.append(", taskId=").append(taskId);
         sb.append(", createTime=").append(createTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

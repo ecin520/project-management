@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pytap.project.dao.AnnexMapper">
-  <resultMap id="BaseResultMap" type="com.pytap.project.entity.Annex">
+<mapper namespace="com.pytap.project.dao.TaskTypeMapper">
+  <resultMap id="BaseResultMap" type="com.pytap.project.entity.TaskType">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="url" jdbcType="VARCHAR" property="url" />
-    <result column="task_id" jdbcType="BIGINT" property="taskId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -67,15 +65,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, url, task_id, create_time
+    id, name, create_time
   </sql>
-  <select id="selectByExample" parameterType="com.pytap.project.entity.AnnexExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.pytap.project.entity.TaskTypeExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from annex
+    from task_type
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -86,42 +84,34 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from annex
+    from task_type
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from annex
+    delete from task_type
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.pytap.project.entity.AnnexExample">
-    delete from annex
+  <delete id="deleteByExample" parameterType="com.pytap.project.entity.TaskTypeExample">
+    delete from task_type
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.pytap.project.entity.Annex">
+  <insert id="insert" parameterType="com.pytap.project.entity.TaskType">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into annex (name, url, task_id, 
-      create_time)
-    values (#{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{taskId,jdbcType=BIGINT}, 
-      #{createTime,jdbcType=TIMESTAMP})
+    insert into task_type (name, create_time)
+    values (#{name,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.pytap.project.entity.Annex">
+  <insert id="insertSelective" parameterType="com.pytap.project.entity.TaskType">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into annex
+    insert into task_type
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="name != null">
         name,
-      </if>
-      <if test="url != null">
-        url,
-      </if>
-      <if test="taskId != null">
-        task_id,
       </if>
       <if test="createTime != null">
         create_time,
@@ -131,37 +121,25 @@
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="url != null">
-        #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="taskId != null">
-        #{taskId,jdbcType=BIGINT},
-      </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.pytap.project.entity.AnnexExample" resultType="java.lang.Integer">
-    select count(*) from annex
+  <select id="countByExample" parameterType="com.pytap.project.entity.TaskTypeExample" resultType="java.lang.Integer">
+    select count(*) from task_type
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update annex
+    update task_type
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
-      </if>
-      <if test="record.url != null">
-        url = #{record.url,jdbcType=VARCHAR},
-      </if>
-      <if test="record.taskId != null">
-        task_id = #{record.taskId,jdbcType=BIGINT},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -172,27 +150,19 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update annex
+    update task_type
     set id = #{record.id,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
-      url = #{record.url,jdbcType=VARCHAR},
-      task_id = #{record.taskId,jdbcType=BIGINT},
       create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.pytap.project.entity.Annex">
-    update annex
+  <update id="updateByPrimaryKeySelective" parameterType="com.pytap.project.entity.TaskType">
+    update task_type
     <set>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="url != null">
-        url = #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="taskId != null">
-        task_id = #{taskId,jdbcType=BIGINT},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -200,11 +170,9 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.pytap.project.entity.Annex">
-    update annex
+  <update id="updateByPrimaryKey" parameterType="com.pytap.project.entity.TaskType">
+    update task_type
     set name = #{name,jdbcType=VARCHAR},
-      url = #{url,jdbcType=VARCHAR},
-      task_id = #{taskId,jdbcType=BIGINT},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>

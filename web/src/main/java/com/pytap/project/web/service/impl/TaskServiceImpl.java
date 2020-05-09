@@ -28,12 +28,12 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public Integer updateTaskByManager(Task task) {
-		return taskMapper.updateByPrimaryKey(task);
+		return taskMapper.updateByPrimaryKeyWithBLOBs(task);
 	}
 
 	@Override
 	public Integer updateTaskByDeveloper(Task task) {
-		return taskMapper.updateByPrimaryKey(task);
+		return taskMapper.updateByPrimaryKeyWithBLOBs(task);
 	}
 
 	@Override
@@ -51,7 +51,7 @@ public class TaskServiceImpl implements TaskService {
 		TaskExample taskExample = new TaskExample();
 		TaskExample.Criteria criteria = taskExample.createCriteria();
 		criteria.andProjectIdEqualTo(id);
-		return taskMapper.selectByExample(taskExample);
+		return taskMapper.selectByExampleWithBLOBs(taskExample);
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class TaskServiceImpl implements TaskService {
 		TaskExample.Criteria criteria = taskExample.createCriteria();
 		criteria.andProjectIdEqualTo(projectId);
 		criteria.andExecutorEqualTo(executor);
-		return taskMapper.selectByExample(taskExample);
+		return taskMapper.selectByExampleWithBLOBs(taskExample);
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class TaskServiceImpl implements TaskService {
 		TaskExample taskExample = new TaskExample();
 		TaskExample.Criteria criteria = taskExample.createCriteria();
 		criteria.andExecutorEqualTo(id);
-		return taskMapper.selectByExample(taskExample);
+		return taskMapper.selectByExampleWithBLOBs(taskExample);
 	}
 
 

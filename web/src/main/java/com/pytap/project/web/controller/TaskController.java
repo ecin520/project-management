@@ -47,10 +47,10 @@ public class TaskController {
 	}
 
 	@Log(value = "删除任务")
-	@PreAuthorize("hasAuthority('AP_PROJECT_MANAGER_' + #id)")
+	@PreAuthorize("hasAuthority('AP_PROJECT_MANAGER_' + #projectId)")
 	@RequestMapping(value = "/deleteTask", method = RequestMethod.GET)
-	public JSONObject deleteTask(Long id) {
-		return taskService.deleteTask(id) == 1 ? JsonUtil.success() : JsonUtil.fail();
+	public JSONObject deleteTask(Long taskId, Long projectId) {
+		return taskService.deleteTask(taskId) == 1 ? JsonUtil.success() : JsonUtil.fail();
 	}
 
 	@Log(value = "主键获取单个任务")
@@ -75,7 +75,7 @@ public class TaskController {
 	}
 
 	@Log(value = "通过项目id和任务执行者列出所有任务")
-	@PreAuthorize("hasAuthority('AP_PROJECT_USER_' + #id)")
+	@PreAuthorize("hasAuthority('AP_USER_' + #id)")
 	@RequestMapping(value = "/listAllTasksByUserId", method = RequestMethod.GET)
 	public JSONObject listAllTasksByUserId(Long id) {
 		return JsonUtil.backObject(200, taskService.listAllTasksByUserId(id));

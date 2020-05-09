@@ -39,6 +39,9 @@ public class WebSecurityConfig extends SecurityConfig {
 			User user = userService.getByUsername(username);
 			if (user != null) {
 				List<AuthDTO> list = webUserService.listUserAllRolePermissions(user.getId());
+				for (AuthDTO authDTO : list) {
+					System.out.println(authDTO.toString());
+				}
 				return new UserDetailsImpl(user, list);
 			} else {
 				throw new UsernameNotFoundException("用户名不存在");

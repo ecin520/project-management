@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.pytap.project.entity.Project">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="status" jdbcType="SMALLINT" property="status" />
@@ -71,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, creater, name, type, status, create_time
+    id, creater, image, name, type, status, create_time
   </sql>
   <sql id="Blob_Column_List">
     explanation
@@ -128,12 +129,12 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into project (creater, name, type, 
-      status, create_time, explanation
-      )
-    values (#{creater,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
-      #{status,jdbcType=SMALLINT}, #{createTime,jdbcType=TIMESTAMP}, #{explanation,jdbcType=LONGVARCHAR}
-      )
+    insert into project (creater, image, name, 
+      type, status, create_time, 
+      explanation)
+    values (#{creater,jdbcType=BIGINT}, #{image,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{status,jdbcType=SMALLINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{explanation,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.pytap.project.entity.Project">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -143,6 +144,9 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="creater != null">
         creater,
+      </if>
+      <if test="image != null">
+        image,
       </if>
       <if test="name != null">
         name,
@@ -163,6 +167,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="creater != null">
         #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="image != null">
+        #{image,jdbcType=VARCHAR},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -196,6 +203,9 @@
       <if test="record.creater != null">
         creater = #{record.creater,jdbcType=BIGINT},
       </if>
+      <if test="record.image != null">
+        image = #{record.image,jdbcType=VARCHAR},
+      </if>
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
       </if>
@@ -220,6 +230,7 @@
     update project
     set id = #{record.id,jdbcType=BIGINT},
       creater = #{record.creater,jdbcType=BIGINT},
+      image = #{record.image,jdbcType=VARCHAR},
       name = #{record.name,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=SMALLINT},
@@ -233,6 +244,7 @@
     update project
     set id = #{record.id,jdbcType=BIGINT},
       creater = #{record.creater,jdbcType=BIGINT},
+      image = #{record.image,jdbcType=VARCHAR},
       name = #{record.name,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=SMALLINT},
@@ -246,6 +258,9 @@
     <set>
       <if test="creater != null">
         creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="image != null">
+        image = #{image,jdbcType=VARCHAR},
       </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
@@ -268,6 +283,7 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.pytap.project.entity.Project">
     update project
     set creater = #{creater,jdbcType=BIGINT},
+      image = #{image,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       status = #{status,jdbcType=SMALLINT},
@@ -278,6 +294,7 @@
   <update id="updateByPrimaryKey" parameterType="com.pytap.project.entity.Project">
     update project
     set creater = #{creater,jdbcType=BIGINT},
+      image = #{image,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       status = #{status,jdbcType=SMALLINT},

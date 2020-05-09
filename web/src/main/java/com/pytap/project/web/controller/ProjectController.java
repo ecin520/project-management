@@ -40,7 +40,7 @@ public class ProjectController {
 	}
 
 	@Log(value = "项目主键删除项目，项目最高管理员才能删除项目")
-	@PreAuthorize("hasAuthority('AP_PROJECT_SPUER_' + #id)")
+	@PreAuthorize("hasAuthority('AP_PROJECT_SUPER_' + #id)")
 	@RequestMapping(value = "/deleteProjectById", method = RequestMethod.GET)
 	public JSONObject deleteProjectById(Long id) {
 		return 1 == projectService.deleteProjectById(id) ? JsonUtil.success() : JsonUtil.fail();

@@ -6,6 +6,7 @@
     <result column="project_id" jdbcType="BIGINT" property="projectId" />
     <result column="executor" jdbcType="BIGINT" property="executor" />
     <result column="initiator" jdbcType="BIGINT" property="initiator" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="starting_time" jdbcType="TIMESTAMP" property="startingTime" />
     <result column="deadline" jdbcType="TIMESTAMP" property="deadline" />
@@ -76,8 +77,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, project_id, executor, initiator, type, starting_time, deadline, status, priority, 
-    create_time
+    id, project_id, executor, initiator, name, type, starting_time, deadline, status, 
+    priority, create_time
   </sql>
   <sql id="Blob_Column_List">
     explanation, content
@@ -135,13 +136,15 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into task (project_id, executor, initiator, 
-      type, starting_time, deadline, 
-      status, priority, create_time, 
-      explanation, content)
+      name, type, starting_time, 
+      deadline, status, priority, 
+      create_time, explanation, content
+      )
     values (#{projectId,jdbcType=BIGINT}, #{executor,jdbcType=BIGINT}, #{initiator,jdbcType=BIGINT}, 
-      #{type,jdbcType=VARCHAR}, #{startingTime,jdbcType=TIMESTAMP}, #{deadline,jdbcType=TIMESTAMP}, 
-      #{status,jdbcType=SMALLINT}, #{priority,jdbcType=SMALLINT}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{explanation,jdbcType=LONGVARCHAR}, #{content,jdbcType=LONGVARCHAR})
+      #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{startingTime,jdbcType=TIMESTAMP}, 
+      #{deadline,jdbcType=TIMESTAMP}, #{status,jdbcType=SMALLINT}, #{priority,jdbcType=SMALLINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{explanation,jdbcType=LONGVARCHAR}, #{content,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.pytap.project.entity.Task">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -157,6 +160,9 @@
       </if>
       <if test="initiator != null">
         initiator,
+      </if>
+      <if test="name != null">
+        name,
       </if>
       <if test="type != null">
         type,
@@ -192,6 +198,9 @@
       </if>
       <if test="initiator != null">
         #{initiator,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
         #{type,jdbcType=VARCHAR},
@@ -240,6 +249,9 @@
       <if test="record.initiator != null">
         initiator = #{record.initiator,jdbcType=BIGINT},
       </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
       <if test="record.type != null">
         type = #{record.type,jdbcType=VARCHAR},
       </if>
@@ -275,6 +287,7 @@
       project_id = #{record.projectId,jdbcType=BIGINT},
       executor = #{record.executor,jdbcType=BIGINT},
       initiator = #{record.initiator,jdbcType=BIGINT},
+      name = #{record.name,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=VARCHAR},
       starting_time = #{record.startingTime,jdbcType=TIMESTAMP},
       deadline = #{record.deadline,jdbcType=TIMESTAMP},
@@ -293,6 +306,7 @@
       project_id = #{record.projectId,jdbcType=BIGINT},
       executor = #{record.executor,jdbcType=BIGINT},
       initiator = #{record.initiator,jdbcType=BIGINT},
+      name = #{record.name,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=VARCHAR},
       starting_time = #{record.startingTime,jdbcType=TIMESTAMP},
       deadline = #{record.deadline,jdbcType=TIMESTAMP},
@@ -314,6 +328,9 @@
       </if>
       <if test="initiator != null">
         initiator = #{initiator,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
         type = #{type,jdbcType=VARCHAR},
@@ -347,6 +364,7 @@
     set project_id = #{projectId,jdbcType=BIGINT},
       executor = #{executor,jdbcType=BIGINT},
       initiator = #{initiator,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       starting_time = #{startingTime,jdbcType=TIMESTAMP},
       deadline = #{deadline,jdbcType=TIMESTAMP},
@@ -362,6 +380,7 @@
     set project_id = #{projectId,jdbcType=BIGINT},
       executor = #{executor,jdbcType=BIGINT},
       initiator = #{initiator,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       starting_time = #{startingTime,jdbcType=TIMESTAMP},
       deadline = #{deadline,jdbcType=TIMESTAMP},

@@ -23,13 +23,13 @@ public class GlobalException {
 
 	private static final Logger logger = LoggerFactory.getLogger(GlobalException.class);
 
-	/**
-	 * 一般异常
-	 * */
-	@ExceptionHandler(value = Exception.class)
-	public void exception(Exception e) {
-		logger.info("Error: {}", e.getMessage());
-	}
+	///**
+	// * 一般异常
+	// * */
+	//@ExceptionHandler(value = Exception.class)
+	//public void exception(Exception e) {
+	//	logger.info("Error: {}", e.getMessage());
+	//}
 
 	/**
 	 * 空指针异常

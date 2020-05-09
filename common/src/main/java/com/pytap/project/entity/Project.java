@@ -8,6 +8,8 @@ public class Project implements Serializable {
 
     private Long creater;
 
+    private String image;
+
     private String name;
 
     private String type;
@@ -34,6 +36,14 @@ public class Project implements Serializable {
 
     public void setCreater(Long creater) {
         this.creater = creater;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getName() {
@@ -84,6 +94,7 @@ public class Project implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", creater=").append(creater);
+        sb.append(", image=").append(image);
         sb.append(", name=").append(name);
         sb.append(", type=").append(type);
         sb.append(", status=").append(status);

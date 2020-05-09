@@ -32,9 +32,10 @@
         <!-- 生成mapper.xml的路径 -->
         <sqlMapGenerator targetPackage="mapper" targetProject="common\src\main\resources"/>
         <!-- 生成mapper接口的的路径 -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.pytap.project.web.dao"
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.pytap.project.dao"
                              targetProject="common\src\main\java"/>
 
+        <!-- % 为全部表 -->
         <table tableName="annex">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>

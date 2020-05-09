@@ -41,14 +41,14 @@ public class UserController {
 	@RequestMapping(value = "/getByUserId", method = RequestMethod.GET)
 	public JSONObject getByUserId(Long id) {
 		UserDTO userDTO = userService.getDtoByUserId(id);
-		return null == userDTO ? JsonUtil.fail() : JsonUtil.backObject(200, userDTO);
+		return null == userDTO ? JsonUtil.backInfo(400, "用户不存在") : JsonUtil.backObject(200, userDTO);
 	}
 
 	@Log(value = "用户名获取用户信息")
 	@RequestMapping(value = "/getByUsername", method = RequestMethod.GET)
 	public JSONObject getByUsername(String username) {
 		UserDTO userDTO = userService.getDtoByUsername(username);
-		return null == userDTO ? JsonUtil.fail() : JsonUtil.backObject(200, userDTO);
+		return null == userDTO ? JsonUtil.backInfo(400, "用户不存在") : JsonUtil.backObject(200, userDTO);
 	}
 
 }

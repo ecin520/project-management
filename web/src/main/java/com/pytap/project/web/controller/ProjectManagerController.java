@@ -40,8 +40,8 @@ public class ProjectManagerController {
 	}
 
 	@Log(value = "获取用户管理的所有项目")
-	@PreAuthorize("hasAuthority('AP_PROJECT_USER_' + #id)")
-	@RequestMapping(value = "/listProjectsByManagerId", method = RequestMethod.POST)
+	@PreAuthorize("hasAuthority('AP_USER_' + #id)")
+	@RequestMapping(value = "/listProjectsByManagerId", method = RequestMethod.GET)
 	public JSONObject listProjectsByManagerId(Long id) {
 		List<Project> list = projectOperationService.listProjectsByManagerId(id);
 		return null == list ? JsonUtil.fail() : JsonUtil.backObject(200, list);
@@ -55,7 +55,7 @@ public class ProjectManagerController {
 	}
 
 	@Log(value = "通过项目id获取所有管理员")
-	@PreAuthorize("hasAuthority('AP_PROJECT_MANAGER_' + #id)")
+	@PreAuthorize("hasAnyAuthority('AP_PROJECT_MANAGER_' + #id, 'AP_PROJECT_DEVELOPER_' + #id)")
 	@RequestMapping(value = "/listManagersByProjectId", method = RequestMethod.GET)
 	public JSONObject listManagersByProjectId(Long id) {
 		List<UserDTO> list = projectOperationService.listManagersByProjectId(id);

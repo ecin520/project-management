@@ -55,8 +55,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDTO getDtoByUserId(Long id) {
 		UserDTO userDTO = new UserDTO();
-		BeanUtils.copyProperties(userMapper.selectByPrimaryKey(id), userDTO);
-		return userDTO;
+		User user = userMapper.selectByPrimaryKey(id);
+		if (null != user) {
+			BeanUtils.copyProperties(userMapper.selectByPrimaryKey(id), userDTO);
+			return userDTO;
+		}
+		return null;
 	}
 
 	@Override
@@ -72,8 +76,8 @@ public class UserServiceImpl implements UserService {
 		UserDTO userDTO = new UserDTO();
 		if (null != user) {
 			BeanUtils.copyProperties(user, userDTO);
+			return userDTO;
 		}
-
 		return userDTO;
 	}
 

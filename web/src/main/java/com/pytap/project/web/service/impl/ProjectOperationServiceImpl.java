@@ -38,4 +38,5 @@ public class ProjectOperationServiceImpl implements ProjectOperationService {
 	public List<Project> listProjectsByDeveloperId(Long id) {
 		return projectOperationDao.listProjectsByDeveloperId(id);
 	}
+
 }

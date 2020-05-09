@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pytap.project.dao.AnnexMapper">
-  <resultMap id="BaseResultMap" type="com.pytap.project.entity.Annex">
+<mapper namespace="com.pytap.project.dao.ProjectVerificationMapper">
+  <resultMap id="BaseResultMap" type="com.pytap.project.entity.ProjectVerification">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="url" jdbcType="VARCHAR" property="url" />
-    <result column="task_id" jdbcType="BIGINT" property="taskId" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="send_id" jdbcType="BIGINT" property="sendId" />
+    <result column="receive_id" jdbcType="BIGINT" property="receiveId" />
+    <result column="project_id" jdbcType="BIGINT" property="projectId" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="status" jdbcType="SMALLINT" property="status" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,15 +69,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, url, task_id, create_time
+    id, send_id, receive_id, project_id, content, type, status
   </sql>
-  <select id="selectByExample" parameterType="com.pytap.project.entity.AnnexExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.pytap.project.entity.ProjectVerificationExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from annex
+    from project_verification
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -86,85 +88,105 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from annex
+    from project_verification
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from annex
+    delete from project_verification
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.pytap.project.entity.AnnexExample">
-    delete from annex
+  <delete id="deleteByExample" parameterType="com.pytap.project.entity.ProjectVerificationExample">
+    delete from project_verification
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.pytap.project.entity.Annex">
+  <insert id="insert" parameterType="com.pytap.project.entity.ProjectVerification">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into annex (name, url, task_id, 
-      create_time)
-    values (#{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{taskId,jdbcType=BIGINT}, 
-      #{createTime,jdbcType=TIMESTAMP})
+    insert into project_verification (send_id, receive_id, project_id, 
+      content, type, status
+      )
+    values (#{sendId,jdbcType=BIGINT}, #{receiveId,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, 
+      #{content,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{status,jdbcType=SMALLINT}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.pytap.project.entity.Annex">
+  <insert id="insertSelective" parameterType="com.pytap.project.entity.ProjectVerification">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into annex
+    insert into project_verification
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="name != null">
-        name,
+      <if test="sendId != null">
+        send_id,
       </if>
-      <if test="url != null">
-        url,
+      <if test="receiveId != null">
+        receive_id,
       </if>
-      <if test="taskId != null">
-        task_id,
+      <if test="projectId != null">
+        project_id,
       </if>
-      <if test="createTime != null">
-        create_time,
+      <if test="content != null">
+        content,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="status != null">
+        status,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="sendId != null">
+        #{sendId,jdbcType=BIGINT},
       </if>
-      <if test="url != null">
-        #{url,jdbcType=VARCHAR},
+      <if test="receiveId != null">
+        #{receiveId,jdbcType=BIGINT},
       </if>
-      <if test="taskId != null">
-        #{taskId,jdbcType=BIGINT},
+      <if test="projectId != null">
+        #{projectId,jdbcType=BIGINT},
       </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=SMALLINT},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.pytap.project.entity.AnnexExample" resultType="java.lang.Integer">
-    select count(*) from annex
+  <select id="countByExample" parameterType="com.pytap.project.entity.ProjectVerificationExample" resultType="java.lang.Integer">
+    select count(*) from project_verification
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update annex
+    update project_verification
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
+      <if test="record.sendId != null">
+        send_id = #{record.sendId,jdbcType=BIGINT},
       </if>
-      <if test="record.url != null">
-        url = #{record.url,jdbcType=VARCHAR},
+      <if test="record.receiveId != null">
+        receive_id = #{record.receiveId,jdbcType=BIGINT},
       </if>
-      <if test="record.taskId != null">
-        task_id = #{record.taskId,jdbcType=BIGINT},
+      <if test="record.projectId != null">
+        project_id = #{record.projectId,jdbcType=BIGINT},
       </if>
-      <if test="record.createTime != null">
-        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=SMALLINT},
       </if>
     </set>
     <if test="_parameter != null">
@@ -172,40 +194,50 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update annex
+    update project_verification
     set id = #{record.id,jdbcType=BIGINT},
-      name = #{record.name,jdbcType=VARCHAR},
-      url = #{record.url,jdbcType=VARCHAR},
-      task_id = #{record.taskId,jdbcType=BIGINT},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+      send_id = #{record.sendId,jdbcType=BIGINT},
+      receive_id = #{record.receiveId,jdbcType=BIGINT},
+      project_id = #{record.projectId,jdbcType=BIGINT},
+      content = #{record.content,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=SMALLINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.pytap.project.entity.Annex">
-    update annex
+  <update id="updateByPrimaryKeySelective" parameterType="com.pytap.project.entity.ProjectVerification">
+    update project_verification
     <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+      <if test="sendId != null">
+        send_id = #{sendId,jdbcType=BIGINT},
       </if>
-      <if test="url != null">
-        url = #{url,jdbcType=VARCHAR},
+      <if test="receiveId != null">
+        receive_id = #{receiveId,jdbcType=BIGINT},
       </if>
-      <if test="taskId != null">
-        task_id = #{taskId,jdbcType=BIGINT},
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=BIGINT},
       </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=SMALLINT},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.pytap.project.entity.Annex">
-    update annex
-    set name = #{name,jdbcType=VARCHAR},
-      url = #{url,jdbcType=VARCHAR},
-      task_id = #{taskId,jdbcType=BIGINT},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
+  <update id="updateByPrimaryKey" parameterType="com.pytap.project.entity.ProjectVerification">
+    update project_verification
+    set send_id = #{sendId,jdbcType=BIGINT},
+      receive_id = #{receiveId,jdbcType=BIGINT},
+      project_id = #{projectId,jdbcType=BIGINT},
+      content = #{content,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      status = #{status,jdbcType=SMALLINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

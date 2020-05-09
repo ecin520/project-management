@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pytap.project.dao.ErrorLogMapper">
-  <resultMap id="BaseResultMap" type="com.pytap.project.entity.ErrorLog">
+<mapper namespace="com.pytap.project.dao.ProjectTypeMapper">
+  <resultMap id="BaseResultMap" type="com.pytap.project.entity.ProjectType">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="message" jdbcType="VARCHAR" property="message" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="param" jdbcType="VARCHAR" property="param" />
-    <result column="url" jdbcType="VARCHAR" property="url" />
-    <result column="method" jdbcType="VARCHAR" property="method" />
-    <result column="ip" jdbcType="VARCHAR" property="ip" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
@@ -71,15 +65,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, message, username, param, url, method, ip, name, create_time
+    id, name, create_time
   </sql>
-  <select id="selectByExample" parameterType="com.pytap.project.entity.ErrorLogExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.pytap.project.entity.ProjectTypeExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from error_log
+    from project_type
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -90,54 +84,32 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from error_log
+    from project_type
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from error_log
+    delete from project_type
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.pytap.project.entity.ErrorLogExample">
-    delete from error_log
+  <delete id="deleteByExample" parameterType="com.pytap.project.entity.ProjectTypeExample">
+    delete from project_type
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.pytap.project.entity.ErrorLog">
+  <insert id="insert" parameterType="com.pytap.project.entity.ProjectType">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into error_log (message, username, param, 
-      url, method, ip, name, 
-      create_time)
-    values (#{message,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{param,jdbcType=VARCHAR}, 
-      #{url,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP})
+    insert into project_type (name, create_time)
+    values (#{name,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.pytap.project.entity.ErrorLog">
+  <insert id="insertSelective" parameterType="com.pytap.project.entity.ProjectType">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into error_log
+    insert into project_type
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="message != null">
-        message,
-      </if>
-      <if test="username != null">
-        username,
-      </if>
-      <if test="param != null">
-        param,
-      </if>
-      <if test="url != null">
-        url,
-      </if>
-      <if test="method != null">
-        method,
-      </if>
-      <if test="ip != null">
-        ip,
-      </if>
       <if test="name != null">
         name,
       </if>
@@ -146,24 +118,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="message != null">
-        #{message,jdbcType=VARCHAR},
-      </if>
-      <if test="username != null">
-        #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="param != null">
-        #{param,jdbcType=VARCHAR},
-      </if>
-      <if test="url != null">
-        #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="method != null">
-        #{method,jdbcType=VARCHAR},
-      </if>
-      <if test="ip != null">
-        #{ip,jdbcType=VARCHAR},
-      </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
@@ -172,35 +126,17 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.pytap.project.entity.ErrorLogExample" resultType="java.lang.Integer">
-    select count(*) from error_log
+  <select id="countByExample" parameterType="com.pytap.project.entity.ProjectTypeExample" resultType="java.lang.Integer">
+    select count(*) from project_type
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update error_log
+    update project_type
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
-      </if>
-      <if test="record.message != null">
-        message = #{record.message,jdbcType=VARCHAR},
-      </if>
-      <if test="record.username != null">
-        username = #{record.username,jdbcType=VARCHAR},
-      </if>
-      <if test="record.param != null">
-        param = #{record.param,jdbcType=VARCHAR},
-      </if>
-      <if test="record.url != null">
-        url = #{record.url,jdbcType=VARCHAR},
-      </if>
-      <if test="record.method != null">
-        method = #{record.method,jdbcType=VARCHAR},
-      </if>
-      <if test="record.ip != null">
-        ip = #{record.ip,jdbcType=VARCHAR},
       </if>
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
@@ -214,41 +150,17 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update error_log
+    update project_type
     set id = #{record.id,jdbcType=BIGINT},
-      message = #{record.message,jdbcType=VARCHAR},
-      username = #{record.username,jdbcType=VARCHAR},
-      param = #{record.param,jdbcType=VARCHAR},
-      url = #{record.url,jdbcType=VARCHAR},
-      method = #{record.method,jdbcType=VARCHAR},
-      ip = #{record.ip,jdbcType=VARCHAR},
       name = #{record.name,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.pytap.project.entity.ErrorLog">
-    update error_log
+  <update id="updateByPrimaryKeySelective" parameterType="com.pytap.project.entity.ProjectType">
+    update project_type
     <set>
-      <if test="message != null">
-        message = #{message,jdbcType=VARCHAR},
-      </if>
-      <if test="username != null">
-        username = #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="param != null">
-        param = #{param,jdbcType=VARCHAR},
-      </if>
-      <if test="url != null">
-        url = #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="method != null">
-        method = #{method,jdbcType=VARCHAR},
-      </if>
-      <if test="ip != null">
-        ip = #{ip,jdbcType=VARCHAR},
-      </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
@@ -258,15 +170,9 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.pytap.project.entity.ErrorLog">
-    update error_log
-    set message = #{message,jdbcType=VARCHAR},
-      username = #{username,jdbcType=VARCHAR},
-      param = #{param,jdbcType=VARCHAR},
-      url = #{url,jdbcType=VARCHAR},
-      method = #{method,jdbcType=VARCHAR},
-      ip = #{ip,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.pytap.project.entity.ProjectType">
+    update project_type
+    set name = #{name,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>

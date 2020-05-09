@@ -29,6 +29,7 @@
     <select id="listProjectsByManagerId" resultType="com.pytap.project.entity.Project">
         SELECT
             id,
+            image,
             creater,
             name,
             type,
@@ -39,6 +40,7 @@
     <select id="listProjectsByDeveloperId" resultType="com.pytap.project.entity.Project">
         SELECT
             id,
+            image,
             creater,
             name,
             type,

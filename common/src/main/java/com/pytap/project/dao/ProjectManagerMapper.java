@@ -3,8 +3,11 @@ package com.pytap.project.dao;
 import com.pytap.project.entity.ProjectManager;
 import com.pytap.project.entity.ProjectManagerExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface ProjectManagerMapper {
     int countByExample(ProjectManagerExample example);
 

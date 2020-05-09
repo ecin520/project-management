@@ -10,6 +10,9 @@ mybatis:
     map-underscore-to-camel-case: true
 
 spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
   datasource:
     name: DruidDataSource
     type: com.alibaba.druid.pool.DruidDataSource

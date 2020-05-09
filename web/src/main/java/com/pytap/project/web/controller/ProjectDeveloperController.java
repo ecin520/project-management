@@ -39,7 +39,7 @@ public class ProjectDeveloperController {
 	}
 
 	@Log(value = "获取用户开发的所有项目")
-	@PreAuthorize("hasAuthority('AP_PROJECT_USER_' + #id)")
+	@PreAuthorize("hasAuthority('AP_USER_' + #id)")
 	@RequestMapping(value = "/listProjectsByDeveloperId", method = RequestMethod.GET)
 	public JSONObject listProjectsByDeveloperId(Long id) {
 		List<Project> list = projectOperationService.listProjectsByDeveloperId(id);
@@ -54,7 +54,7 @@ public class ProjectDeveloperController {
 	}
 
 	@Log(value = "通过项目id获取所有开发者")
-	@PreAuthorize("hasAuthority('AP_PROJECT_MANAGER_' + #id)")
+	@PreAuthorize("hasAnyAuthority('AP_PROJECT_MANAGER_' + #id, 'AP_PROJECT_DEVELOPER_' + #id)")
 	@RequestMapping(value = "/listDevelopersByProjectId", method = RequestMethod.GET)
 	public JSONObject listDevelopersByProjectId(Long id) {
 		List<UserDTO> list = projectOperationService.listDevelopersByProjectId(id);

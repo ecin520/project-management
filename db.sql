@@ -25,15 +25,6 @@ INSERT INTO `user` VALUES (1003, 'god', '$2a$10$Fk5R4WpwKcxwkcKPG4mWi.eArJKooA3B
 INSERT INTO `user` VALUES (1004, '1234', '$2a$10$shH/cUehmTlfYbHzZ261t.T3J2Mgbpe5RTaCv5pNAsb9tljdWGTb6', 'http://106.15.200.82/source/1586595437749.jpg', 'qwe2', '21', '12', '2020-04-15 14:40:05.066', NULL, 1);
 INSERT INTO `user` VALUES (1005, 'ecin520', '$2a$10$c.owgk6b1f33Qpq.Jlz7zOwmXtjtS1EomIWLyHTOlh9BRvVTNoPV2', 'http://106.15.200.82/source/1586595437837.jpg', '936130072@qq.com', 'qq', 'jac', '2020-04-15 14:47:25.79', NULL, 1);
 INSERT INTO `user` VALUES (1006, 'EOF', '$2a$10$9nuu1y10825.QGJs1/xFZurcH0SVYlpL7ZdEVworGGOX6ZxPBjeu6', 'http://106.15.200.82/source/1586595057638.jpg', NULL, NULL, NULL, '2020-04-15 14:48:36.845', NULL, 1);
-INSERT INTO `user` VALUES (1009, '123123', '$2a$10$2/TNi95g2ChRN2MQ55RlK.t9avNJg.LRyetNgswrQ1CYWy2fBz8ka', 'http://106.15.200.82/source/1586595073473.jpg', NULL, NULL, NULL, '2020-04-15 14:53:31.381', NULL, 1);
-INSERT INTO `user` VALUES (1010, 'user1', '$2a$10$4F3jOhUSTAFfVQYTZZIruOT3/w5Srb9MlPv0I6mJ6v5kXP7rFf9Xa', 'http://106.15.200.82/source/1586595046437.jpg', '@qqq', 'Linus', NULL, '2020-04-15 14:55:52.365', NULL, 1);
-INSERT INTO `user` VALUES (1011, 'asdasd', '$2a$10$k56j6fNLW7LrXHEW/Ve2J.504QBk7ZZrvkkBvwAdOgfA7FSISXS9a', 'http://106.15.200.82/source/1586595020057.jpg', 'das', 'das', 'sad', '2020-04-16 06:58:16.852', NULL, 1);
-INSERT INTO `user` VALUES (1012, 'asdaa', '$2a$10$h.3aTPFPn3a976VXjPAlAuJBflG1OUkXBj4f.sHdMHEVaA0fCXq4y', 'http://106.15.200.82/source/1586595435886.jpg', 'asd', 'asd', 'asdasd', '2020-04-16 07:29:11.635', NULL, 1);
-INSERT INTO `user` VALUES (1013, '123412523', '$2a$10$5hQtSRobNaqb1mvrhkp38uQFwKcwdP6oiJ6wTYIjH5CM/YgeOT6I2', 'http://106.15.200.82/source/1586595021180.jpg', NULL, NULL, NULL, '2020-04-16 08:31:55.757', NULL, 1);
-INSERT INTO `user` VALUES (1014, 'sdafasdfa', '$2a$10$XpJah4IzuwHh8jwQh2WhdeK9DM/DpBY8qCWK6p2QI3rQDsR2ZoS8W', 'http://106.15.200.82/source/1586595438509.jpg', NULL, NULL, NULL, '2020-04-16 08:32:51.219', NULL, 1);
-INSERT INTO `user` VALUES (1015, 'sdfsdfsd', '$2a$10$2fzpTboJC8BQ36BDEJlre.I0fblvhLuYt8ztVVafSmFmRL1Zq0aqm', 'http://106.15.200.82/source/1586595021264.jpg', 'asdf', 'asf', 'dsfs', '2020-04-16 13:24:29.221', NULL, 1);
-INSERT INTO `user` VALUES (1016, 'huotuichang', '$2a$10$yYO37sthzXp.Z7t1EdIHXOcR.k7ZzMlBc4g4yae0k6rJIHaZh1P/q', 'http://106.15.200.82/source/1586595062959.jpg', '875631208@qq.com', '火腿肠', '真香', '2020-04-16 13:29:41.136', NULL, 1);
-
 
 SELECT * FROM `user`;
 
@@ -77,7 +68,7 @@ INSERT INTO `permission` VALUES(1000, 'P_SUPER', '最高权限', now());
 
 INSERT INTO `permission` VALUES(1001, 'P_NORMAL', '普通权限，基于user的权限', now());
 
-INSERT INTO `permission` VALUES(1002, 'P_MANAGEMENT', '管理权限，项目管理员的权限', now());
+INSERT INTO `permission` VALUES(1002, 'P_MANAGER', '管理权限，项目管理员的权限', now());
 
 SELECT * FROM `permission`;
 
@@ -139,7 +130,13 @@ CREATE TABLE `additional_permission`(
 		PRIMARY KEY (`id`)
 		) ENGINE=InnoDB AUTO_INCREMENT = 1000 DEFAULT CHARSET=utf8 COMMENT='额外权限表';
 
-INSERT `additional_permission` VALUES(1000, 'AP_1000', '项目1000', NOW());
+INSERT `additional_permission` VALUES(1000, 'AP_USER_1000', '用户1000', NOW());
+INSERT `additional_permission` VALUES(1001, 'AP_USER_1001', '用户1001', NOW());
+INSERT `additional_permission` VALUES(1002, 'AP_USER_1002', '用户1002', NOW());
+INSERT `additional_permission` VALUES(1003, 'AP_USER_1003', '用户1003', NOW());
+INSERT `additional_permission` VALUES(1004, 'AP_USER_1004', '用户1004', NOW());
+INSERT `additional_permission` VALUES(1005, 'AP_USER_1005', '用户1005', NOW());
+INSERT `additional_permission` VALUES(1006, 'AP_USER_1006', '用户1006', NOW());
 
 
 -- ----------------------------
@@ -154,8 +151,13 @@ CREATE TABLE `user_additional_permission`(
 		PRIMARY KEY (`id`)
 		) ENGINE=InnoDB AUTO_INCREMENT = 1000 DEFAULT CHARSET=utf8 COMMENT='用户额外权限表';
 
-INSERT `user_additional_permission` VALUES(1000, 1001, 1000, NOW());
-
+INSERT `user_additional_permission` VALUES(1000, 1000, 1000, NOW());
+INSERT `user_additional_permission` VALUES(1001, 1001, 1001, NOW());
+INSERT `user_additional_permission` VALUES(1002, 1002, 1002, NOW());
+INSERT `user_additional_permission` VALUES(1003, 1003, 1003, NOW());
+INSERT `user_additional_permission` VALUES(1004, 1004, 1004, NOW());
+INSERT `user_additional_permission` VALUES(1005, 1005, 1005, NOW());
+INSERT `user_additional_permission` VALUES(1006, 1006, 1006, NOW());
 
 -- ----------------------------
 -- Table structure for web_log
@@ -194,7 +196,6 @@ CREATE TABLE `web_log`(
 		) ENGINE=InnoDB AUTO_INCREMENT = 1000 DEFAULT CHARSET=utf8 COMMENT='error日志';
 
 
-
 -- ----------------------------
 -- Table structure for project
 -- ----------------------------
@@ -202,6 +203,7 @@ DROP TABLE IF EXISTS `project`;
 CREATE TABLE `project`(
 		`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
 		`creater` BIGINT(20) NOT NULL COMMENT '创建者id',
+		`image` VARCHAR(500) NOT NULL COMMENT '展示图片',
 		`name` VARCHAR(500) NOT NULL COMMENT '项目名称',
 		`type` VARCHAR(100) DEFAULT NULL COMMENT '项目类型',
 		`explanation` TEXT DEFAULT NULL COMMENT '项目说明',
@@ -210,6 +212,22 @@ CREATE TABLE `project`(
 		PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT = 1000 DEFAULT CHARSET=utf8 COMMENT='项目表';
 
+
+-- ----------------------------
+-- Table structure for project
+-- ----------------------------
+DROP TABLE IF EXISTS `project_type`;
+CREATE TABLE `project_type`(
+		`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+		`name` VARCHAR(500) NOT NULL COMMENT '类型名称',
+		`create_time` DATETIME DEFAULT NULL COMMENT '操作时间',
+		PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT = 1000 DEFAULT CHARSET=utf8 COMMENT='项目类型表';
+
+INSERT `project_type` VALUES(1000, '普通项目', NOW());
+INSERT `project_type` VALUES(1001, '企业项目', NOW());
+INSERT `project_type` VALUES(1002, '个人项目', NOW());
+INSERT `project_type` VALUES(1003, '其他项目', NOW());
 
 
 -- ----------------------------
@@ -247,6 +265,7 @@ CREATE TABLE `task`(
 		`project_id` BIGINT(20) NOT NULL COMMENT '项目id',
 		`executor` BIGINT(20) NOT NULL COMMENT '任务执行者',
 		`initiator` BIGINT(20) NOT NULL COMMENT '任务发起人',
+		`name` VARCHAR(100) DEFAULT NULL COMMENT '任务名称',
 		`type` VARCHAR(100) DEFAULT NULL COMMENT '任务类型',
 		`explanation` TEXT DEFAULT NULL COMMENT '任务说明',
 		`starting_time` DATETIME DEFAULT NULL COMMENT '开始时间',
@@ -260,23 +279,48 @@ CREATE TABLE `task`(
 
 
 -- ----------------------------
+-- Table structure for task_type
+-- ----------------------------
+DROP TABLE IF EXISTS `task_type`;
+CREATE TABLE `task_type`(
+		`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+		`name` VARCHAR(500) NOT NULL COMMENT '类型名称',
+		`create_time` DATETIME DEFAULT NULL COMMENT '操作时间',
+		PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT = 1000 DEFAULT CHARSET=utf8 COMMENT='任务类型表';
+
+INSERT `task_type` VALUES(1000, '普通任务', NOW());
+INSERT `task_type` VALUES(1001, '开发任务', NOW());
+INSERT `task_type` VALUES(1002, '测试任务', NOW());
+INSERT `task_type` VALUES(1003, '临时任务', NOW());
+
+
+-- ----------------------------
+-- Table structure for project_verification
+-- ----------------------------
+DROP TABLE IF EXISTS `project_verification`;
+CREATE TABLE `project_verification`(
+		`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+		`send_id` BIGINT(20) NOT NULL COMMENT '发送id',
+		`receive_id` BIGINT(20) NOT NULL COMMENT '接收者id',
+		`project_id` BIGINT(20) NOT NULL COMMENT '项目id',
+		`type` VARCHAR(500) NOT NULL COMMENT '验证类型 manager or developer',
+		`status` SMALLINT DEFAULT NULL COMMENT '验证状态',
+		PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT = 1000 DEFAULT CHARSET=utf8 COMMENT='项目人员认证表';
+
+
+-- ----------------------------
 -- Table structure for annex
 -- ----------------------------
 DROP TABLE IF EXISTS `annex`;
 CREATE TABLE `annex`(
 		`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
 		`name` VARCHAR(500) NOT NULL COMMENT '附件名称',
+		`url` VARCHAR(500) NOT NULL COMMENT '附件地址',
 		`task_id` BIGINT(20) NOT NULL COMMENT '任务id',
 		`create_time` DATETIME DEFAULT NULL COMMENT '操作时间',
 		PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT = 1000 DEFAULT CHARSET=utf8 COMMENT='附件表';
-
-
-
--- 根据用户id查询拥有权限
-SELECT p.`id`, p.`name`, p.`description`, p.`create_time` FROM `permission` p, `role_permission` rp, `role` r WHERE p.`id` = rp.`permission_id` AND r.`id` = rp.`role_id` AND r.`id` IN (SELECT r.`id` FROM `role` r, `user` u, `user_role` ur WHERE r.`id` = ur.`role_id` AND u.`id` = ur.`user_id` AND u.`id` = 1001);
-
--- 根据用户id查询拥有的额外权限
-SELECT ap.`name`, ap.description FROM `user` u, `additional_permission` ap, `user_additional_permission` up WHERE ap.`id` = up.`additional_permission_id` AND u.`id` = up.`user_id` AND u.`id` = 1001;
 
 

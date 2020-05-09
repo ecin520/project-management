@@ -12,6 +12,8 @@ public class Task implements Serializable {
 
     private Long initiator;
 
+    private String name;
+
     private String type;
 
     private Date startingTime;
@@ -60,6 +62,14 @@ public class Task implements Serializable {
 
     public void setInitiator(Long initiator) {
         this.initiator = initiator;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getType() {
@@ -136,6 +146,7 @@ public class Task implements Serializable {
         sb.append(", projectId=").append(projectId);
         sb.append(", executor=").append(executor);
         sb.append(", initiator=").append(initiator);
+        sb.append(", name=").append(name);
         sb.append(", type=").append(type);
         sb.append(", startingTime=").append(startingTime);
         sb.append(", deadline=").append(deadline);
